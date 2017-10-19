@@ -11,8 +11,8 @@ title('ecg')
 order = 4;
 wc = 20;
 fc = wc / (0.5 * fs);
-[b, a]=butter(order, fc, 'Low');
-e1 = filter (b, a, ecg);
+[b, a] = butter(order, fc, 'low');
+e1 = filtfilt(b, a, ecg);
 subplot(2,2,2)
 plot(e1)
 title('low')
@@ -21,8 +21,8 @@ title('low')
 order = 4;
 wc = 5;
 fc = wc / (0.5 * fs);
-[b,a] = butter(order, fc, 'High');
-e2 = filter (b, a, e1);
+[b, a] = butter(order, fc, 'high');
+e2 = filtfilt(b, a, e1);
 subplot(2,2,3)
 plot(e2)
 title('high')
@@ -31,7 +31,7 @@ title('high')
 e3 = diff(e2);
 subplot(2,2,4)
 plot(e3)
-title('diff')
+title('diff)')
 
 % potentiation
 e4 = e3.^2;
@@ -42,8 +42,8 @@ title('pot')
 
 % moving average
 timeWindow = 0.2;
-N = 50;
-b  = (1/N)*ones (1, N);
+N = timeWindow * fs;
+b  = (1 / N) * ones(1, N);
 a  = 1;
 e5 = filter (b, a, e4);
 subplot(2,2,2)
@@ -76,8 +76,7 @@ bpm = (60 / duration) * beats;
 fprintf('\r')
 fprintf('==============================================\r')
 fprintf('----------- Duration: %f seconds\r', duration)
-fprintf('----------- In beats: %f\r', beats)
+fprintf('----------- In beats: %i\r', beats)
 fprintf('\r')
 fprintf('----------- beats/min: %f\r', bpm)
 fprintf('==============================================\r')
-
