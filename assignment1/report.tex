@@ -28,7 +28,7 @@
 \definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
 \lstset{
 backgroundcolor=\color{lbcolor},
-		tabsize=3,    
+		tabsize=3,
 		linewidth=13.5cm,
 		language=MATLAB,
         basicstyle=\scriptsize,
@@ -69,7 +69,7 @@ backgroundcolor=\color{lbcolor},
   stringstyle=\color{red}
   }
 
-  
+
 \titlespacing*{\subsubsection}{0pt}{1.1\baselineskip}{\baselineskip}
 
 \begin{document}
@@ -95,9 +95,9 @@ backgroundcolor=\color{lbcolor},
 			\centerline{$|f(x)-e^x|/f(x)$}
 		 Dove con f(x) si è definita la funzione myExp() implementata.\\
 		In appendice saranno riportati i codici degli script in \textbf{MATLAB} utilizzati per effettuare il testing.
-		 
+
 		\subsection{Casi di test}
-		Ciascun test è stato implementato come funzione all'interno del framework per i test case di MATLAB. 
+		Ciascun test è stato implementato come funzione all'interno del framework per i test case di MATLAB.
 		Di seguito si analizzerà il codice di ciascuno di essi e se ne riporterà il risultato.
 		I casi di test sono stati progettati ed eseguiti secondo la seguente tabella:
 
@@ -126,7 +126,7 @@ backgroundcolor=\color{lbcolor},
 				TC15 & \pbox{20cm}{\vspace{.5\baselineskip}x numero reale valido\\ TOL non presente \vspace{.5\baselineskip}}										& \pbox{20cm}{x=10\\ TOL=[23,1]} 	& Sollevamento di errore invalidTolerance\\ \hline
 				TC16 & \pbox{20cm}{\vspace{.5\baselineskip}x di tipo carattere\\ TOL numero immaginario \vspace{.5\baselineskip}}									& \pbox{20cm}{x='a'\\ TOL=i} 	& Sollevamento di errore invalidExponent \\ \hline
 				\end{tabularx}}
-		}	
+		}
 
 
 \subsubsection{TC1}
@@ -176,5 +176,5 @@ facendo uso dell'interpolazione polinomiale offerta da MATLAB (in rosso) , si os
 \clearpage
 \appendix
 \section{Appendix: Script}
-\subsection{parser.m}	
+\subsection{parser.m}
 {\tt  \lstinputlisting{parser.m}}
