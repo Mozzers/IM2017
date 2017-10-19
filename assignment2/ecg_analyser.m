@@ -61,10 +61,23 @@ i = 2;
 while i<=length(e5)
     if e5(i)==threshold || e5(i-1) < threshold && e5(i) > threshold
         peaks(index) = i;
-        index = index+1;
-        i = i+indexPause;
+        index = index + 1;
+        i = i + indexPause;
     else
-        i = i+1;
+        i = i + 1;
     end
 end
-length(peaks)
+
+% output
+beats = length(peaks);
+duration = length(ecg) / fs;
+bpm = (60 / duration) * beats;
+
+fprintf('\r')
+fprintf('==============================================\r')
+fprintf('----------- Duration: %f seconds\r', duration)
+fprintf('----------- In beats: %f\r', beats)
+fprintf('\r')
+fprintf('----------- beats/min: %f\r', bpm)
+fprintf('==============================================\r')
+
