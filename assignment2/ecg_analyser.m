@@ -68,6 +68,3 @@ while i<=length(e5)
     end
 end
 length(peaks)
-
-% back
-back = 0.5;
