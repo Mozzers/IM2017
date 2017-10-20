@@ -148,7 +148,7 @@ The variable validOBX is at first set as true, since an OBX segment could not be
 Additional checks are present in order to consider situations in which the message ends with an OBR segment, and thus preventing an out-of-bound exception while trying to access a row index in overflow for the 'fields' matrix.
 
 \begin{lstlisting}[caption=Validity of OBR/OBX segments]
-%There should be at least one OBR segment, if there are any 
+There should be at least one OBR segment, if there are any 
 validOBR=false;
 validOBX=true;
 for i=3:rows
@@ -244,9 +244,4 @@ Once run, the MATLAB script output is the following:
 \includegraphics[width=1.4\textwidth,height=10cm]{ppg.png}}\hspace*{-\paperwidth}
 \end{figure}
 
-\clearpage
-\appendix
-\section{Appendix: Script}
-\subsection{parser.m}	
-{\tt  \lstinputlisting{parser.m}}
 \end{document}
