@@ -6,3 +6,5 @@
 .DS_Store
 *.m~
 *.synctex.gz
+*.orig
+*.pdf
