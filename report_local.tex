@@ -1,0 +1,22 @@
+\documentclass[11pt,a4paper,ngerman]{article}
+
+\title{Report of the paper}
+\author{Martin Schlegel}
+
+\begin{document}
+
+\maketitle
+
+\section{Message HL7}
+The message consists of 13 segments:
+\begin{enumerate}
+  \item Message Header (MSH): Here we define the receiving and sending applications/ units, the time, the message type and the version of HL7. We use version 2.7, because it is the newest one and include the NextOfKin-segment. The message type is defined as ORU\textasciicircum R01 to declare it is a unsolicited observation result.
+  \item Patient Data (PID): In this segment we store all patient directed data, like the name, address and given contact details.
+  \item NextOfKin (NK1): These segments stores the information of the responsible person for the patient. In this case here are stored values related to the patients wife.
+  \item Observation Result (OBR): We decided to use two different OBR- Segments to save the different kinds of data (numeric and time series). These OBR saves the numeric data in the following OBX segments.
+  \item 7 Observation Segments (OBX's): These segments are storing the specific numeric values, like the height, weight of the patient in different OBX segments. To show the connection to the previous defined OBR they have an ongoing index.
+  \item Observation Result (OBR): These OBR stores the time series values of the Photoplethysmography (PPG) we did in the class.
+  \item Observation Segments (OBX): Here are the PPG values. The different values are seperated by \textasciicircum.
+\end{enumerate}
+
+\end{document}
