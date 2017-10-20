@@ -54,3 +54,43 @@ for i=3:rows
         end
     end
 end
+
+if ~validOBR
+    disp('There is not an OBR segment - invalid syntax');
+    return
+end
+
+if ~validOBX
+    disp('There is a problem with OBX segment indexes - invalid syntax');
+    return
+end
+name=strsplit(fields{2,6},'^');
+height=fields{5,6};
+heightMeasure=strsplit(fields{5,7},'^');
+
+weight=fields{6,6};
+weightMeasure=strsplit(fields{6,7},'^');
+
+heartRate=fields{7,6};
+heartMeasure=strsplit(fields{7,7},'^');
+
+sysPre=fields{8,6};
+sysMeasure=strsplit(fields{8,7},'^');
+
+dyaPre=fields{9,6};
+dyaMeasure=strsplit(fields{9,7},'^');
+
+fprintf('Information about the patient: %s %s\n' ,name{1},name{2}); 
+fprintf('Details: \n');
+fprintf('Weight: %s %s\n' ,weight,weightMeasure{2}); 
+fprintf('Height: %s %s\n' ,height,heightMeasure{2}); 
+fprintf('Systolic blood pressure: %s %s\n' ,sysPre,sysMeasure{2}); 
+fprintf('Dyastolic blood pressure: %s %s\n' ,dyaPre,dyaMeasure{2}); 
+fprintf('Mean blood pressure by ppg shown in figure\n'); 
+
+y=str2double(strsplit(fields{13,6},'^'));
+x=1:1000;
+plot(x,y);
+title('Results of PPG Examination for patient' name);
+xlabel('Time ticks - seconds');
+ylabel('PPG Values');
