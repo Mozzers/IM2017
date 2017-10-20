@@ -91,6 +91,6 @@ fprintf('Mean blood pressure by ppg shown in figure\n');
 y=str2double(strsplit(fields{13,6},'^'));
 x=1:1000;
 plot(x,y);
-title('Results of PPG Examination for patient' name);
+title('Results of PPG Examination for patient');
 xlabel('Time ticks - seconds');
 ylabel('PPG Values');
