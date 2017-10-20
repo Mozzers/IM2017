@@ -54,6 +54,8 @@ for i=3:rows
         end
     end
 end
+<<<<<<< HEAD
+=======
 
 if ~validOBR
     disp('There is not an OBR segment - invalid syntax');
@@ -94,3 +96,4 @@ plot(x,y);
 title('Results of PPG Examination for patient' name);
 xlabel('Time ticks - seconds');
 ylabel('PPG Values');
+>>>>>>> 46a5bec3bb8ed23a6341f34ac7b7a64a7c15e771
