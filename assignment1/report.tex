@@ -102,33 +102,6 @@ backgroundcolor=\color{lbcolor},
 		I casi di test sono stati progettati ed eseguiti secondo la seguente tabella:
 
 
-{
-		\centering
-		\noindent\makebox[\textwidth][c]{
-		\begin{tabularx}{1.325\textwidth}{| l | l | l | l | }
-
-				\hline
-				Test Case & Descrizione Test Case & Input & Output Atteso \\ \hline
-				TC1 &  \pbox{20cm}{\vspace{.5\baselineskip}x numero reale positivo\\ TOL non presente \vspace{.5\baselineskip}}										& x=10 			&y= 2.2026e+04  \\ \hline
-				TC2 & \pbox{20cm}{\vspace{.5\baselineskip}x numero reale positivo\\ TOL non presente\\ N ordine dello sviluppo in serie  \vspace{.5\baselineskip}}	& x=10 			& y= 2.2026e+04, N=46 \\\hline
-				TC3 & \pbox{20cm}{\vspace{.5\baselineskip}x numero reale positivo\\ TOL numero intero\\ N ordine dello sviluppo in serie \vspace{.5\baselineskip}}	& \pbox{20cm}{x=10\\ TOL=4} 	& y=2.2024e+04, N= 24 \\\hline
-				TC4 & \pbox{20cm}{\vspace{.5\baselineskip}x numero reale negativo\\ TOL non presente \vspace{.5\baselineskip}}										& \pbox{20cm}{x=-2\\ TOL=5} 	& y=0.1353, \\ \hline
-				TC5 & \pbox{20cm}{\vspace{.5\baselineskip}x numero reale > $log(2^{1024}$)\\ TOL non presente \vspace{.5\baselineskip}}								& x=800 		& y=inf, sollevamento warning  \\ \hline
-				TC6 & \pbox{20cm}{\vspace{.5\baselineskip}x numero reale < $log(2^{-1074}$)\\ TOL non presente \vspace{.5\baselineskip}}							& x=-1000 		& y=0, sollevamento warning \\ \hline
-				TC7 & \pbox{20cm}{\vspace{.5\baselineskip}x di tipo NaN\\ TOL non presente\vspace{.5\baselineskip}} 												& x=nan 		& Sollevamento di errore invalidExponent \\ \hline
-				TC8 & \pbox{20cm}{\vspace{.5\baselineskip}x di tipo carattere\\ TOL non presente \vspace{.5\baselineskip}}											& x='a' 		& Sollevamento di errore invalidExponent \\ \hline
-				TC9 & \pbox{20cm}{\vspace{.5\baselineskip}x numero immaginario\\ TOL non presente \vspace{.5\baselineskip}}											& x=i 			& Sollevamento di errore invalidExponent \\ \hline
-				TC10 &\pbox{20cm}{\vspace{.5\baselineskip}x vettore di reali\\ TOL non presente \vspace{.5\baselineskip}}											& x=[3,3] 		& Sollevamento di errore invalidExponent \\ \hline
-				TC11 & \pbox{20cm}{\vspace{.5\baselineskip}x numero reale valido\\ TOL di tipo nan \vspace{.5\baselineskip}}										& \pbox{20cm}{x=9\\ TOL=nan} 	& Sollevamento di errore invalidTolerance \\ \hline
-				TC12 & \pbox{20cm}{\vspace{.5\baselineskip}x numero reale valido\\ TOL di tipo carattere \vspace{.5\baselineskip}}									& \pbox{20cm}{x=32\\ TOL= 's'}& Sollevamento di errore invalidTolerance \\ \hline
-				TC13 & \pbox{20cm}{\vspace{.5\baselineskip}x numero reale valido\\ TOL numero immaginario \vspace{.5\baselineskip}}									& \pbox{20cm}{x=14\\ TOL=i} 	& Sollevamento di errore invalidTolerance \\ \hline
-				TC14 & \pbox{20cm}{\vspace{.5\baselineskip}x numero reale valido\\ TOL numero negativo \vspace{.5\baselineskip}}									& \pbox{20cm}{x=3\\ TOL='-66'}	& Sollevamento di errore invalidTolerance \\ \hline
-				TC15 & \pbox{20cm}{\vspace{.5\baselineskip}x numero reale valido\\ TOL non presente \vspace{.5\baselineskip}}										& \pbox{20cm}{x=10\\ TOL=[23,1]} 	& Sollevamento di errore invalidTolerance\\ \hline
-				TC16 & \pbox{20cm}{\vspace{.5\baselineskip}x di tipo carattere\\ TOL numero immaginario \vspace{.5\baselineskip}}									& \pbox{20cm}{x='a'\\ TOL=i} 	& Sollevamento di errore invalidExponent \\ \hline
-				\end{tabularx}}
-		}
-
-
 \subsubsection{TC1}
 Questo test case vede come input il numero reale scalare positivo 10, e pertanto l'output previsto è il corrispondente esponenziale $e^{10}$.
 Si tiene in considerazione un'accuratezza entro limiti di $3*\epsilon$.
@@ -140,13 +113,6 @@ Si tiene in considerazione un'accuratezza entro limiti di $3*\epsilon$.
 	end
 \end{lstlisting}
 
-L'ultimo test case prevede un valore invalido di input e uno altrettanto invalido di tolleranza.
-Per la natura opzionale del parametro di tolleranza, l'errore lanciato dalla funzione dovrebbe essere di tipo 'invalidExponent'.
-\begin{lstlisting}[caption=Test Case 16]
-function testInvalidExpTolerance(testCase)
-	testCase.verifyError(@()myExp('a',[23,1]),'myExp:invalidExponent');
-end
-\end{lstlisting}
 
 \section{Message parsing}
 
@@ -172,7 +138,6 @@ Il secondo considera invece l'errore relativo al crescere del parametro x.\\
 Nel secondo grafico si  può notare come non esista dipendenza lineare tra errore e grandezza degli ingressi. Tuttavia,
 facendo uso dell'interpolazione polinomiale offerta da MATLAB (in rosso) , si osserva un andamento leggermente crescente al crescere del parametro x.
 
-\end{figure}
 \clearpage
 \appendix
 \section{Appendix: Script}
