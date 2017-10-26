@@ -1,11 +1,11 @@
-load ecg.dat
+load ('ecg.dat')
 
 fs = 1000;
 
-figure(1)
-subplot(2,2,1)
-plot(ecg)
-title('ecg')
+%figure(1)
+%subplot(2,2,1)
+%plot(ecg)
+%title('ecg')
 
 % lowpass filter
 order = 4;
@@ -13,9 +13,9 @@ wc = 20;
 fc = wc / (0.5 * fs);
 [b, a] = butter(order, fc, 'low');
 e1 = filtfilt(b, a, ecg);
-subplot(2,2,2)
-plot(e1)
-title('low')
+%subplot(2,2,2)
+%plot(e1)
+%title('low')
 
 % highpass filter
 order = 4;
@@ -23,22 +23,22 @@ wc = 5;
 fc = wc / (0.5 * fs);
 [b, a] = butter(order, fc, 'high');
 e2 = filtfilt(b, a, e1);
-subplot(2,2,3)
-plot(e2)
-title('high')
+%subplot(2,2,3)
+%plot(e2)
+%title('high')
 
 % differentiation
 e3 = diff(e2);
-subplot(2,2,4)
-plot(e3)
-title('diff)')
+%subplot(2,2,4)
+%plot(e3)
+%title('diff)')
 
 % potentiation
 e4 = e3.^2;
-figure(2)
-subplot(2,2,1)
-plot(e4)
-title('pot')
+%figure(2)
+%subplot(2,2,1)
+%plot(e4)
+%title('pot')
 
 % moving average
 timeWindow = 0.2;
@@ -46,9 +46,9 @@ N = timeWindow * fs;
 b  = (1 / N) * ones(1, N);
 a  = 1;
 e5 = filter (b, a, e4);
-subplot(2,2,2)
-plot(e5)
-title('avg')
+%subplot(2,2,2)
+%plot(e5)
+%title('avg')
 
 % find peaks
 threshold = 0.7 * mean(e5);
