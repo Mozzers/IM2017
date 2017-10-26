@@ -68,6 +68,16 @@ while i<=length(e5)
     end
 end
 
+% set position TODO?
+back = 0.5;
+backIndex = back * fs;
+
+for i=1:length(peaks)
+    tempECG = ecg(peaks(i)-backIndex:peaks(i));
+    [~, maxIndex] = max(tempECG);
+    peaks(i) = peaks(i) + maxIndex - backIndex-1;
+end
+
 % output
 beats = length(peaks);
 duration = length(ecg) / fs;
