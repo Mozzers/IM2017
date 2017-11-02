@@ -1,15 +1,31 @@
-% load('DATPVC\DPVC_233');
-% DAT.ind(1);
-% 
-for j=3:length(DAT.ind)-1       %Take into account first and last case later
-    %a=(DAT.ind(j)-DAT.ind(j-1))/3;
-    a=20;
-    %b=(DAT.ind(j+1)-DAT.ind(j))/3;
-    b=20;
-    ecg=DAT.ecg(DAT.ind(j)-a:DAT.ind(j)+b);
-    %ecg=DAT.ecg;
+load ('DATPVC\DPVC_119.mat');
+ecg=DAT.ecg;
+peaks=DAT.ind;
 
-    model=ar(ecg,4);
+%Code to get positive peaks
+for i=1:length(peaks)
+    if(peaks(i)>50 && peaks(i)+50<length(ecg))
+        start=peaks(i)-50;
+        finish=peaks(i)+50;        
+    elseif (peaks(i)<50)       %case first peak is before 50
+        start=1;
+        finish=peaks(i)+50;
+    else %case for last peak
+        start=peaks(i)-50;
+        finish=length(ecg);
+    end 
+    A=ecg(start:finish); 
+    [~,ind]=max(A);                 %find positive peak
+    peaks(i)=start+ind;       %code to reassign peak to positive values
+end
+
+
+for j=3:length(peaks)-1       %Take into account first and last case later
+    a=8;
+    b=8;
+    window=ecg(peaks(j)-a:peaks(j)+b);
+
+    model=ar(window,2);
     A=model.A;
     poles=roots(A);
     pvc=0;
