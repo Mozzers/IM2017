@@ -1,4 +1,4 @@
-load ('DATPVC\DPVC_119.mat');
+load ('DATPVC/DPVC_233.mat');
 ecg=DAT.ecg;
 peaks=DAT.ind;
 
@@ -20,7 +20,7 @@ for i=1:length(peaks)
 end
 
 
-for j=3:length(peaks)-1       %Take into account first and last case later
+for j=1:length(peaks)-1       %Take into account first and last case later
     a=8;
     b=8;
     window=ecg(peaks(j)-a:peaks(j)+b);
@@ -30,7 +30,7 @@ for j=3:length(peaks)-1       %Take into account first and last case later
     poles=roots(A);
     pvc=0;
     for i=1:length(poles)
-        if norm(poles(i))>0.98
+        if norm(poles(i))>0.99
             pvc=1;
             break;
         end

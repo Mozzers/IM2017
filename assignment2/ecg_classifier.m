@@ -1,4 +1,4 @@
-load ('DATPVC/DPVC_106.mat')
+load ('DATPVC/DPVC_233.mat')
 ind = DAT.ind;
 pvc = DAT.pvc;
 ecg = DAT.ecg;
@@ -53,18 +53,58 @@ sdnnArea = sqrt(sum / length(RRIntervals));
 myPVCArea = areas(:) / (meanArea + sdnnArea);
 
 % hermite
+% Code to get positive peaks
+for i=1:length(ind)
+    if(ind(i)>50 && ind(i)+50<length(ecg))
+        start=ind(i)-50;
+        finish=ind(i)+50;        
+    elseif (ind(i)<50) % case first peak is before 50
+        start=1;
+        finish=ind(i)+50;
+    else % case for last peak
+        start=ind(i)-50;
+        finish=length(ecg);
+    end 
+    A=ecg(start:finish); 
+    [~,index]=max(A); % find positive peak
+    ind(i)=start+index; % code to reassign peak to positive values
+end
 
+myPVCHermit = zeros(length(pvc),1);
+for j=1:length(ind) % Take into account first and last case later
+    a=8;
+    b=8;
+    
+    minIndex = ind(j)-a;
+    if minIndex <= 0
+        minIndex = 1;
+    end
+    
+    maxIndex = ind(j)+b;
+    if maxIndex > length(ind)
+        maxIndex = length(ind);
+    end
+    
+    window=ecg(ind(j)-a:ind(j)+b);
+
+    model=ar(window,2);
+    A=model.A;
+    poles=roots(A);
+    tmppvc=0;
+    for i=1:length(poles)
+        if norm(poles(i))>=1
+            tmppvc=1;
+            break;
+        end
+    end
+    myPVCHermit(j)= tmppvc;
+end
+myPVCHermit = myPVCHermit';
 
 % sumup
 myPVC = zeros(length(myPVCRR),1);
 for i=1:length(myPVCRR)
-    if myPVCRR(i) >= 1
-        myPVC(i) = 1;
-    end
-    if myPVCArea(i) >= 1
-        myPVC(i) = 1;
-    end
-    if myPVCArea(i) + myPVCRR(i) >= 1.9
+    if myPVCRR(i) >= 1 || myPVCArea(i) >= 1 || (myPVCArea(i) + myPVCRR(i) >= 1.9) || myPVCHermit(i) == 1
         myPVC(i) = 1;
     end
 end
