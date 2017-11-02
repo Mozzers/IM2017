@@ -68,12 +68,12 @@ while i<=length(e5)
     end
 end
 
-% set position TODO?
+% set position
 back = 0.5;
 backIndex = back * fs;
 
 for i=1:length(peaks)
-    tempECG = ecg(peaks(i)-backIndex:peaks(i));
+    tempECG = ecg(peaks(i)-backIndex:peaks(i)+backIndex);
     [~, maxIndex] = max(tempECG);
     peaks(i) = peaks(i) + maxIndex - backIndex-1;
 end
