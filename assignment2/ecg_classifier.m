@@ -1,4 +1,4 @@
-load ('DPVC_119.mat')
+load ('DATPVC/DPVC_106.mat')
 ind = DAT.ind;
 pvc = DAT.pvc;
 ecg = DAT.ecg;
@@ -10,21 +10,17 @@ RRIntervals = zeros(length(ind)-1,1);
 for i=2:length(ind)
     RRIntervals(i-1) = ind(i) - ind(i-1);
 end
-
 meanRR = mean(RRIntervals);
 
 sum = 0;
 for i=1:length(RRIntervals)
     sum = sum + (RRIntervals(i) - meanRR).^2;
 end
-
 sdnnRR = sqrt(sum / length(RRIntervals));
 
 myPVCRR = zeros(length(RRIntervals)+1,1);
 for i=1:length(RRIntervals)
-    if RRIntervals(i) > meanRR + sdnnRR
-        myPVCRR(i) = 1;
-    end
+	myPVCRR(i) = RRIntervals(i) / (meanRR + sdnnRR);
 end
 
 % QRS area
@@ -33,7 +29,15 @@ areaIndex = round(area * fs);
 
 areas = zeros(length(ind),1);
 for i=1:length(ind)
-    actualAreaECG = ecg(ind(i)-areaIndex:ind(i)+areaIndex);
+    minIndex = ind(i)-areaIndex;
+    if minIndex <= 0
+        minIndex = 1;
+    end
+    maxIndex = ind(i)+areaIndex;
+    if maxIndex > length(ecg)
+        maxIndex = length(ecg);
+    end
+    actualAreaECG = ecg(minIndex:maxIndex);
     areas(i) = trapz(actualAreaECG);
 end
 
@@ -46,17 +50,21 @@ end
 
 sdnnArea = sqrt(sum / length(RRIntervals));
 
-myPVCArea = zeros(length(areas),1);
-for i=1:length(areas)
-    if areas(i) > meanArea + sdnnArea
-        myPVCArea(i) = 1;
-    end
-end
+myPVCArea = areas(:) / (meanArea + sdnnArea);
+
+% hermite
+
 
 % sumup
 myPVC = zeros(length(myPVCRR),1);
 for i=1:length(myPVCRR)
-    if myPVCRR(i) == 1 || myPVCArea(i) == 1
+    if myPVCRR(i) >= 1
+        myPVC(i) = 1;
+    end
+    if myPVCArea(i) >= 1
+        myPVC(i) = 1;
+    end
+    if myPVCArea(i) + myPVCRR(i) >= 1.9
         myPVC(i) = 1;
     end
 end
@@ -94,7 +102,7 @@ fprintf('right %f %%\r', rightPercentage)
 %fprintf('true negative %i\r', trueNeg)
 %fprintf('errors %i\r', totalError)
 fprintf('false positives %i\r', falsePos)
-fprintf('false negative %i\r', falseNeg)
+fprintf('false negatives %i\r', falseNeg)
 fprintf('sensitivity %f\r', sensitivity)
 fprintf('specificity %f\r', specificity)
 fprintf('==============================================\r')

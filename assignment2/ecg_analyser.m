@@ -1,6 +1,8 @@
 load ('ecg.dat')
-%ecg=DAT.ecg;
 fs = 1000;
+%load ('DATPVC/DPVC_106.mat')
+%ecg=DAT.ecg;
+%fs = 250;
 
 %figure(1)
 %subplot(2,2,1)
@@ -73,7 +75,15 @@ back = 0.5;
 backIndex = back * fs;
 
 for i=1:length(peaks)
-    tempECG = ecg(peaks(i)-backIndex:peaks(i)+backIndex);
+    minIndex = peaks(i)-backIndex;
+    if minIndex <= 0
+        minIndex = 1;
+    end
+    maxIndex = peaks(i)+backIndex;
+    if maxIndex > length(ecg)
+        maxIndex = length(ecg);
+    end
+    tempECG = ecg(minIndex:maxIndex);
     [~, maxIndex] = max(tempECG);
     peaks(i) = peaks(i) + maxIndex - backIndex-1;
 end
