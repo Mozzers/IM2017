@@ -1,16 +1,13 @@
 % load('DATPVC\DPVC_233');
 % DAT.ind(1);
 % 
-% for j=3:length(DAT.ind)-1       %Take into account first and last case later
-%     a=(DAT.ind(j)-DAT.ind(j-1))/3;
-%     a=120;
-%     
-%     b=(DAT.ind(j+1)-DAT.ind(j))/3;
-%     b=160;
-%     
-%     ecg=DAT.ecg(DAT.ind(j)-120:DAT.ind(j)+160);
-
-ecg=DAT.ecg;
+for j=3:length(DAT.ind)-1       %Take into account first and last case later
+    %a=(DAT.ind(j)-DAT.ind(j-1))/3;
+    a=120;
+    %b=(DAT.ind(j+1)-DAT.ind(j))/3;
+    b=160;
+    ecg=DAT.ecg(DAT.ind(j)-a:DAT.ind(j)+b);
+    %ecg=DAT.ecg;
 
     model=ar(ecg,4);
     A=model.A;
@@ -22,8 +19,8 @@ ecg=DAT.ecg;
             break;
         end
     end
-%     result(j)= pvc;
-% end
+    result(j)= pvc;
+end
 
 % test
 right = 0;
