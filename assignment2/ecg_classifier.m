@@ -1,4 +1,4 @@
-load ('DATPVC/DPVC_233.mat')
+load ('DATPVC/DPVC_210.mat')
 ind = DAT.ind;
 pvc = DAT.pvc;
 ecg = DAT.ecg;
@@ -92,19 +92,18 @@ for j=1:length(ind) % Take into account first and last case later
     poles=roots(A);
     tmppvc=0;
     for i=1:length(poles)
-        if norm(poles(i))>=1
+        if norm(poles(i))>=0.98
             tmppvc=1;
             break;
         end
     end
     myPVCHermit(j)= tmppvc;
 end
-myPVCHermit = myPVCHermit';
 
 % sumup
 myPVC = zeros(length(myPVCRR),1);
 for i=1:length(myPVCRR)
-    if myPVCRR(i) >= 1 || myPVCArea(i) >= 1 || (myPVCArea(i) + myPVCRR(i) >= 1.9) || myPVCHermit(i) == 1
+    if myPVCRR(i) >= 1 || myPVCArea(i) >= 1 || (myPVCArea(i) + myPVCRR(i) >= 1.9) && myPVCHermit(i) == 1
         myPVC(i) = 1;
     end
 end

@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 load ('DATPVC/DPVC_233.mat');
-=======
 load ('DATPVC\DPVC_116.mat');
->>>>>>> 74eb11fa084eb2c1bcc86a09b9ce7c9ee24a208b
 ecg=DAT.ecg;
 peaks=DAT.ind;
 
@@ -23,12 +20,7 @@ for i=1:length(peaks)
     peaks(i)=start+ind;       %code to reassign peak to positive values
 end
 
-
-<<<<<<< HEAD
-for j=1:length(peaks)-1       %Take into account first and last case later
-=======
 for j=1:length(peaks)       %Take into account first and last case later
->>>>>>> 74eb11fa084eb2c1bcc86a09b9ce7c9ee24a208b
     a=8;
     b=8;
     window=ecg(peaks(j)-a:peaks(j)+b);
@@ -38,11 +30,7 @@ for j=1:length(peaks)       %Take into account first and last case later
     poles=roots(A);
     pvc=0;
     for i=1:length(poles)
-<<<<<<< HEAD
-        if norm(poles(i))>0.99
-=======
-        if norm(poles(i))>=1
->>>>>>> 74eb11fa084eb2c1bcc86a09b9ce7c9ee24a208b
+        if norm(poles(i))>=0.99
             pvc=1;
             break;
         end
