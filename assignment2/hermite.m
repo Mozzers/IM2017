@@ -1,4 +1,4 @@
-load ('DATPVC\DPVC_116.mat');
+load ('DATPVC\DPVC_203.mat');
 ecg=DAT.ecg;
 peaks=DAT.ind;
 
@@ -30,7 +30,7 @@ for j=1:length(peaks)       %Take into account first and last case later
     poles=roots(A);
     pvc=0;
     for i=1:length(poles)
-        if norm(poles(i))>=1
+        if norm(poles(i))>0.97
             pvc=1;
             break;
         end
@@ -44,7 +44,7 @@ truePos = 0;
 trueNeg=0;
 falsePos = 0;
 falseNeg = 0;
-for i=1:length(DAT.pvc)-1
+for i=1:length(DAT.pvc)
     if DAT.pvc(i) == myPVC(i)
         right = right + 1;
         if myPVC(i) == 0
@@ -60,7 +60,7 @@ for i=1:length(DAT.pvc)-1
         end
     end
 end
-rightPercentage = truePos+trueNeg / length(myPVC) * 100;
+rightPercentage = right / length(myPVC) * 100;
 totalError = falsePos + falseNeg;
 sensitivity = truePos / (truePos + falseNeg);
 specificity = trueNeg / (falsePos + trueNeg);
