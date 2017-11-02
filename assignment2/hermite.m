@@ -3,9 +3,9 @@
 % 
 for j=3:length(DAT.ind)-1       %Take into account first and last case later
     %a=(DAT.ind(j)-DAT.ind(j-1))/3;
-    a=120;
+    a=20;
     %b=(DAT.ind(j+1)-DAT.ind(j))/3;
-    b=160;
+    b=20;
     ecg=DAT.ecg(DAT.ind(j)-a:DAT.ind(j)+b);
     %ecg=DAT.ecg;
 
