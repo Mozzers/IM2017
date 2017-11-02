@@ -19,7 +19,6 @@ for i=1:length(peaks)
     peaks(i)=start+ind;       %code to reassign peak to positive values
 end
 
-
 for j=1:length(peaks)       %Take into account first and last case later
     a=8;
     b=8;
