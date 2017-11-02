@@ -1,5 +1,5 @@
 load ('ecg.dat')
-
+%ecg=DAT.ecg;
 fs = 1000;
 
 %figure(1)
