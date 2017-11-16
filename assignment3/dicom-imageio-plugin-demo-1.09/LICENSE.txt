@@ -1,0 +1,207 @@
+                         LICENSE AGREEMENT
+
+           EVALUATION OF DICOM IMAGE I/O PLUGIN VERSION 1.09
+
+
+
+This is a license agreement (the "Agreement") between Apteryx
+("Apteryx"), the author and owner of the Dicom Image I/O Plugin 
+and any person who accepts the terms of the Agreement (the "Licensee").
+
+DEFINITIONS
+
+"Software": means the evaluation version of the Dicom Image Plugin version
+1.08, a library that allows to read, write and transfer data using the
+DICOM standard, as well as any utility program or sample source code
+packaged with the library.
+
+"the Documentation": means any user documentation, on any media, provided 
+by Apteryx for use with the Software
+
+PURPOSE
+
+Apteryx grants the Licensee a non-exclusive, non-transferable license to
+install and use the Software only upon the condition that the Licensee
+accepts all the terms contained in the Agreement.
+
+
+IMPORTANT
+
+Any download, use or copy of the Software, of one of its component or
+of the Documentation requires the Licensee's acceptance to become bound by
+the terms of this Agreement.
+
+By downloading or copying the Software, the Licensee confirms his
+acceptance to become bound by the terms of this Agreement.
+
+The Licensee undertakes to obtain all the necessary authorisations to
+operate the Software within the scope of his activity.
+
+Any use of the Software, except as permitted by the Agreement is an
+infringement of intellectual property rights. As a consequence, the
+Licensee may be liable to Apteryx and may be subject to civil
+penalties and/or criminal sanctions.
+
+
+INTELLECTUAL PROPERTY
+
+The Software is an original work of authorship which is protected as
+such by national and international laws. Apteryx is and remain the
+sole owner of the property, title and intellectual property rights of
+the Software and the Documentation.
+
+Also, any trademarks, commercial names and logos described in the
+Agreement, on and in the Software and the Documentation are the
+property of their respective owners.
+
+The Licensee is not authorised to use the trademarks, commercial names
+or logos of Apteryx except to demonstrate its applications to the
+extent that the Licensee expressly states that such applications have
+been developed with the Software.
+
+The Licensee undertakes to keep intact all the proprietary notices
+which appear on or in the Software, the Documentation or in any full or
+partial copy of the Software.
+
+
+SCOPE OF LICENSE
+
+Apteryx grants the Licensee a non exclusive and non transferable
+license, which confers to the Licensee the following rights :
+
+- install the Software; 
+
+- use the Software for evaluation purpose only.
+
+This article must be strictly interpreted. Except in case of prior
+written consent of Apteryx, any other use or operation of the
+Software, whichever the media may be, and by any other means, is
+expressly prohibited.
+
+In particular, the Licensee expressly undertakes, without the prior 
+written consent of Apteryx, not to:
+
+- modify, translate or adapt the Software or the Documentation; 
+
+- reverse engineer, decompile, disassemble the Software, except
+otherwise mentioned in the law in force; 
+
+- use any equipment, device, software or other means designated to
+circumvent or remove any form of version or copy protection of the
+Software; 
+
+- use or export the Software or the Documentation in violation of the
+applicable export control laws;
+
+- distribute the Software to third parties;
+
+- use the Software for another purpose than evaluating whether the
+Software suits the Licensee needs.
+
+
+DURATION
+
+The license is granted to the Licensee by Apteryx for an evaluation
+period of one year, starting the day the Licenses obtains a copy of
+the Software.
+ At the end of the period, the Licensee agrees to destroy all partial
+or full copies of the Software that he may holds.
+
+
+WARRANTY
+
+Apteryx's obligations as well as any offer or proposal which Apteryx
+may formulate are considered as obligation of means (obligations de
+moyens).
+
+Apteryx makes no other warranties, express or implied. In particular,
+Apteryx disclaims any warranty of merchantability or fitness for a
+particular purpose. Apteryx does not warrant that the operation of the
+Software will be error-free or bug-free.
+
+The Agreement does not exclude the warranties which, by law, can not
+be excluded and any liability which may occur will be limited to the
+correction or replacement of the Software, at Apteryx choice.
+
+
+INSURANCE
+
+The Licensee represents that it has taken out the relevant insurance
+policies in respect of its activity and the use of the Software.
+
+
+LIABILITY
+
+The Licensee is solely liable for the choice of the Software, its
+adequacy to the Licensee's needs, its use as well as the results which
+may be produced by such use. Apteryx, or any other person involved in
+the creation of the Software will by no means be liable for any
+damages to the Licensee or third parties, including in the event of
+unavailability of the Software, interruption or dysfunction of the
+Software, false interpretation of the results provided by the
+Software, data being rendered inaccurate or losses, or a failure of
+the Software to operate with any other software.
+
+
+In no event will Apteryx be liable for any loss or damages of any
+kind, including loss of data, lost profits, damages to the computer
+system or other special, consequential or incidental damages arising
+out of the use or inability to use the Software or the Documentation
+however caused.
+
+Furthermore, Apteryx shall not be liable either for any delay, failure
+or non-performance of the License, or for any consequences of events
+which may be characterised as force majeure.
+
+The Licensee undertakes to defend and/or settle, at its own expense,
+any claim or action against Apteryx based upon a claim by a third
+party that the Licensee's medical diagnosis is false or erroneous. The
+Licensee undertakes to hold Apteryx harmless from and against any and
+all damages incurred as a result of any such claim or action.
+
+In any event, Apteryx's liability will be limited to 1500 Euros.
+
+
+TERMINATION
+
+A breach of any of the Licensee's obligations under the Agreement will
+result in automatic termination of the agreement, as of right and
+without judicial formalities.
+
+
+CONSEQUENCES OF TERMINATION
+
+In case of termination of the Agreement, the Licensee must cease to use
+the Software and destroy any partial of full copy of the Software which
+the Licensee may hold. 
+
+The termination of the Agreement has no effect on the rights of
+Apteryx to take legal actions against the Licensee.
+
+
+CONCLUSIVE FORCE
+
+It is expressly agreed between the Parties that, except for an obvious
+error, the data in Apteryx's computer system shall have conclusive
+force in the relations between the Parties.
+
+
+MISCELLANEOUS PROVISIONS
+
+Any amendment to this Agreement must be performed in writing and be
+signed by a legal representation of Apteryx.
+
+If any of the provisions of the Agreement becomes invalid as a result
+of a law, a governmental regulation or a final court decision, it will
+be considered void and the rest of the Agreement will remain fully
+effective.
+
+This Agreement is the entire agreement between Apteryx and the
+Licensee and supersedes any other previous communication (written or
+oral) or advertising, with respect to the Software or the
+Documentation.
+
+The Agreement is governed and construed in accordance of the laws of
+France. Any dispute relating to the validity, interpretation,
+execution or termination of the Agreement shall be settled by the
+competent French courts.
