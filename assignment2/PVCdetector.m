@@ -36,6 +36,11 @@ fprintf('==============================================\r')
 %ind = peaks; % uncomment for use own peaks
 
 % RR regularity
+RRIntervals = zeros(length(ind)-1,1);
+for i=2:length(ind)
+    RRIntervals(i-1) = ind(i) - ind(i-1);
+end
+meanRR = mean(RRIntervals);
 sdnnRR = calculateSDNNRR(peaks);
 
 myPVCRR = zeros(length(RRIntervals)+1,1);

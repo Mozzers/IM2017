@@ -7,6 +7,7 @@ fs = 250;
 peaks = detectPeaks(ecg, fs);
 sdnnRRALL = calculateSDNNRR(peaks);
 
+% irregularity of cardiac rhyme - RR intervals
 window = 20;
 windowIndex = window * fs;
 
@@ -44,6 +45,25 @@ for i=1:windowCount
         myClass(index) = value;
     end
 end
+
+% analysis of atrial activity
+around = 10;
+for i=1:length(peaks)
+    minIndex = peaks(i)-around;
+    maxIndex = peaks(i)+around;
+    if minIndex < 1
+        minIndex = 1;
+    end
+    if maxIndex > length(ecg)
+        maxIndex = length(ecg);
+    end
+    
+    for j=minIndex:maxIndex
+        ecg(j) = 0;
+    end
+end
+%ecg(:, all(~ecg,1) ) = [];
+plot(ecg(1:1000))
 
 % test
 falsePos = 0;
