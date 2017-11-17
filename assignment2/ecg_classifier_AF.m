@@ -1,10 +1,8 @@
-load ('DATAF/afdb_file-04043_episode-4.mat')
+load ('DATAF/afdb_file-04043_episode-1.mat')
 class = DAT.class;
 annot = DAT.annot;
 ecg = DAT.ecg;
 fs = 250;
-
-sdnnRRALL = sdnnRRFunction(ecg, fs);
 
 window = 20;
 windowIndex = window * fs;
@@ -28,7 +26,14 @@ while i<=length(ecg)-windowIndex
 end
 sdnnRRWindows = sdnnRRWindows';
 
-threshold = (sdnnRRALL - min(sdnnRRWindows))/2;
+threshold = (mean(sdnnRRWindows) - min(sdnnRRWindows))/2;
+
+% myMax = max(sdnnRRWindows);
+% for i=1:length(sdnnRRWindows)
+%     tmpsdnnRRWindows(i)=(sdnnRRWindows(i) ^ 2) / (myMax);
+% end
+% threshold=mean(tmpsdnnRRWindows);
+
 myClass = length(class);
 for i=1:windowCount
     value = 0;
@@ -80,14 +85,18 @@ fprintf('==============================================\r')
 % 
 % bla1 = zeros(1,length(sdnnRRWindows));
 % bla2 = zeros(1,length(sdnnRRWindows));
+% bla3 = zeros(1,length(sdnnRRWindows));
 % for i=1:length(sdnnRRWindows)
 %     bla1(i) = sdnnRRALL;
 %     bla2(i) = threshold;
+%     bla3(i) = threshold1;
 % end
 % figure(2)
-% plot(sdnnRRWindows, 'green')
+% plot(sdnnRRWindows, 'g-o')
 % hold on
 % plot(bla1, 'blue')
 % hold on
 % plot(bla2, 'red')
+% hold on
+% plot(bla3, 'yellow')
 % hold off

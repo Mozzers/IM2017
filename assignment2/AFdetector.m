@@ -1,10 +1,10 @@
-load ('DATAF/afdb_file-04043_episode-4.mat')
+load ('DATAF/afdb_file-04043_episode-2.mat')
 class = DAT.class;
 annot = DAT.annot;
 ecg = DAT.ecg;
 fs = 250;
 
-sdnnRRALL = sdnnRRFunction(ecg, fs);
+[sdnnRRALL, peaks] = sdnnRRFunction(ecg, fs);
 
 window = 20;
 windowIndex = window * fs;
@@ -17,7 +17,7 @@ finish = false;
 while i<=length(ecg)-windowIndex
     tempEcg = ecg(i:i+windowIndex);
     
-    sdnnRRWindows(index) = sdnnRRFunction(tempEcg, fs);
+    [sdnnRRWindows(index), ~] = sdnnRRFunction(tempEcg, fs);
 
     i = i + windowIndex;
     index = index + 1;
