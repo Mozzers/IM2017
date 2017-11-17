@@ -10,33 +10,33 @@ fs = 250;
 peaks = detectPeaks(ecg, fs);
 
 % test
-% right = 0;
-% around = 5;
-% idx = zeros(length(peaks),1);
-% for i=0:around
-%     tmpPeaks = peaks + i;
-%     tmpIdx = ismember(tmpPeaks, ind);
-%     idx = idx | tmpIdx;
-%     tmpPeaks = peaks - i;
-%     tmpIdx = ismember(tmpPeaks, ind);
-%     idx = idx | tmpIdx;
-% end
-% for i=1:length(idx)
-%     if idx(i) == true
-%         right = right + 1;
-%     end
-% end
-% rightPercent = right / length(idx) * 100;
-% 
-% fprintf('==============================================\r')
-% fprintf('right %f\r', rightPercent)
-% fprintf('==============================================\r')
+right = 0;
+around = 5;
+idx = zeros(length(peaks),1);
+for i=0:around
+    tmpPeaks = peaks + i;
+    tmpIdx = ismember(tmpPeaks, ind);
+    idx = idx | tmpIdx;
+    tmpPeaks = peaks - i;
+    tmpIdx = ismember(tmpPeaks, ind);
+    idx = idx | tmpIdx;
+end
+for i=1:length(idx)
+    if idx(i) == true
+        right = right + 1;
+    end
+end
+rightPercent = right / length(idx) * 100;
+
+fprintf('==============================================\r')
+fprintf('right %f\r', rightPercent)
+fprintf('==============================================\r')
 
 % analyse PVC peaks
 %ind = peaks; % uncomment for use own peaks
 
 % RR regularity
-sdnnRR = sqrt(sum / length(RRIntervals));
+sdnnRR = sdnnRRFunction(ecg, fs);
 
 myPVCRR = zeros(length(RRIntervals)+1,1);
 for i=1:length(RRIntervals)
