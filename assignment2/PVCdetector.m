@@ -36,7 +36,7 @@ fprintf('==============================================\r')
 %ind = peaks; % uncomment for use own peaks
 
 % RR regularity
-sdnnRR = sdnnRRFunction(peaks);
+sdnnRR = calculateSDNNRR(peaks);
 
 myPVCRR = zeros(length(RRIntervals)+1,1);
 for i=1:length(RRIntervals)

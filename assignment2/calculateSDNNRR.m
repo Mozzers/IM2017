@@ -1,4 +1,4 @@
-function [sdnnRR] = sdnnRRFunction(peaks)
+function [sdnnRR] = calculateSDNNRR(peaks)
 
     % RR regularity
     RRIntervals = zeros(length(peaks)-1,1);

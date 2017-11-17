@@ -5,7 +5,7 @@ ecg = DAT.ecg;
 fs = 250;
 
 peaks = detectPeaks(ecg, fs);
-sdnnRRALL = sdnnRRFunction(peaks);
+sdnnRRALL = calculateSDNNRR(peaks);
 
 window = 20;
 windowIndex = window * fs;
@@ -18,7 +18,7 @@ finish = false;
 while i<=length(ecg)-windowIndex
     tempEcg = ecg(i:i+windowIndex);
     tempPeaks = detectPeaks(tempEcg, fs);
-    sdnnRRWindows(index) = sdnnRRFunction(tempPeaks);
+    sdnnRRWindows(index) = calculateSDNNRR(tempPeaks);
 
     i = i + windowIndex;
     index = index + 1;
