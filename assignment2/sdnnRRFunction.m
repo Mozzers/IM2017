@@ -1,6 +1,4 @@
-function [sdnnRR] = sdnnRRFunction(ecg, frequence)
-    
-    peaks = detectPeaks(ecg, frequence);
+function [sdnnRR] = sdnnRRFunction(peaks)
 
     % RR regularity
     RRIntervals = zeros(length(peaks)-1,1);

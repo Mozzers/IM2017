@@ -4,7 +4,8 @@ annot = DAT.annot;
 ecg = DAT.ecg;
 fs = 250;
 
-sdnnRRALL = sdnnRRFunction(ecg, fs);
+peaks = detectPeaks(ecg, fs);
+sdnnRRALL = sdnnRRFunction(peaks);
 
 window = 20;
 windowIndex = window * fs;
@@ -16,8 +17,8 @@ index=1;
 finish = false;
 while i<=length(ecg)-windowIndex
     tempEcg = ecg(i:i+windowIndex);
-    
-    sdnnRRWindows(index) = sdnnRRFunction(tempEcg, fs);
+    tempPeaks = detectPeaks(tempEcg, fs);
+    sdnnRRWindows(index) = sdnnRRFunction(tempPeaks);
 
     i = i + windowIndex;
     index = index + 1;
