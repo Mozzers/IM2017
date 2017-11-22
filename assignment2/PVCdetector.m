@@ -110,7 +110,7 @@ for j=1:length(ind) % Take into account first and last case later
         maxIndex = length(ind);
     end
     
-    window=ecg(ind(j)-a:ind(j)+b);
+    window=ecg(minIndex:maxIndex);
 
     model=ar(window,2);
     A=model.A;
