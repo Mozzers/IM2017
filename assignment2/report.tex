@@ -28,7 +28,7 @@
 \definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
 \lstset{
 backgroundcolor=\color{lbcolor},
-		tabsize=3,    
+		tabsize=3,
 		linewidth=13.5cm,
 		language=MATLAB,
         basicstyle=\scriptsize,
@@ -69,21 +69,58 @@ backgroundcolor=\color{lbcolor},
   stringstyle=\color{red}
   }
 
-  
+
 \titlespacing*{\subsubsection}{0pt}{1.1\baselineskip}{\baselineskip}
 
 \begin{document}
 \pagenumbering{gobble}
 %topmatter
-\title{Assignment 2 IM - Ecg Analysis}
+\title{Assignment 2 IM - ECG Analysis}
 \author{Gerardo Vitagliano - 2017214620 \\ Martin Schlegel - 2017190694 }
 \date{\vspace{-5ex}}
 \vfill
 \maketitle
 \clearpage
-\section{HL7 Message}
+\section{Classification System}
 
-\section{Parser}
+\subsection{PVC}
+For the PVC detection we use differences in the RR regularitys, the QRS areas and the hermite functions.
+The detection via the RR regularitys and the QRS areas give a decimal value to detect the specific amount of differences. The hermite functions just can decide between true and false values. So the resulting rule and thresholds are following:\\\\
+$myPVCRR(i) >= 1 || myPVCArea(i) >= 1 || (myPVCArea(i) + myPVCRR(i) >= 1.9) \&\& myPVCHermit(i) == 1$
+\\\\
+If the RR regularitys or the QRS areas too different we assume a PVC. If both of them quite sure and the hermite is true, than we assume a PVC as well.
 
+\subsection{AF}
+For the AF detection we consider the difference of the RR intervals and the frequency for different areas of the ecg.\\\\
+$sdnnRRWindows(i) < 0.9 \&\& lfhfWindows(i) < 0.4$
+\\\\
+blabla TODO
+
+\section{Methods}
+
+\subsection{PVC}
+- RR regularitys: just following the slides, take the indexes of the peaks put them in the formula
+- QRS area: we take the 0.06 seconds around a peak and calculate these are via $trapz()$. That value we calculate via the given formulas on the slides as well.
+- hermite: ??
+
+\subsection{AF}
+- RR intervals: same as for PVC just for all the different windows, than we compare the window values and try to get smart assumptions
+- frequency: just folllowing the slides -> output is shit TODO ??
+
+\section{Results}
+
+\subsection{PVC}
+TODO Gerardo
+
+\subsection{AF}
+TODO Gerardo
+
+\section{Discussion}
+
+\subsection{PVC}
+MUITO BEM!!!
+
+\subsection{AF}
+0.5 * muito bem!
 
 \end{document}
