@@ -1,4 +1,4 @@
-load ('DATAF/afdb_file-04043_episode-2.mat')
+load ('DATAF/afdb_file-04043_episode-1.mat')
 class = DAT.class;
 annot = DAT.annot;
 ecg = DAT.ecg;
@@ -44,8 +44,8 @@ while i<=length(ecg)-windowIndex
     end
     tempEcg(isnan(tempEcg)) = [];
     % TODO
-    LF = bandpower(tempEcg, fs, [1 20]);
-    HF = bandpower(tempEcg, fs, [20 40]);
+    LF = bandpower(tempEcg, fs, [0.04 0.15]);
+    HF = bandpower(tempEcg, fs, [0.15 0.4]);
     LFHF = LF / HF;
     lfhfWindows(index) = LFHF;
 
@@ -57,12 +57,14 @@ while i<=length(ecg)-windowIndex
     end
 end
 sdnnRRWindows = sdnnRRWindows';
+sdnnRRWindows = sdnnRRWindows / max(sdnnRRWindows);
+sdnnRRWindows = 1 - sdnnRRWindows;
+lfhfWindows = lfhfWindows / max(lfhfWindows);
 
-threshold = (sdnnRRALL - min(sdnnRRWindows))/2;
 myClass = length(class);
 for i=1:windowCount
     value = 0;
-    if sdnnRRWindows(i) >= threshold
+    if sdnnRRWindows(i) < 0.9 && lfhfWindows(i) < 0.4
         value = 1;
     end
     for j=(i-1)*windowIndex+1:i*windowIndex+1
