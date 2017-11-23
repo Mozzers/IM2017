@@ -64,7 +64,7 @@ lfhfWindows = lfhfWindows / max(lfhfWindows);
 myClass = length(class);
 for i=1:windowCount
     value = 0;
-    if sdnnRRWindows(i) < 0.9 && lfhfWindows(i) < 0.4
+    if sdnnRRWindows(i) < 0.9 && lfhfWindows(i) < 0.6
         value = 1;
     end
     for j=(i-1)*windowIndex+1:i*windowIndex+1
