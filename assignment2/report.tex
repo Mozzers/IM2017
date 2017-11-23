@@ -234,15 +234,15 @@ Finally, the code is as follows:
 for i=1:length(ind)
     if(ind(i)>50 && ind(i)+50<length(ecg))
         start=ind(i)-50;
-        finish=ind(i)+50;        
+        finish=ind(i)+50;
     elseif (ind(i)<50) % case first peak is before 50
         start=1;
         finish=ind(i)+50;
     else % case for last peak
         start=ind(i)-50;
         finish=length(ecg);
-    end 
-    A=ecg(start:finish); 
+    end
+    A=ecg(start:finish);
     [~,index]=max(A); % find positive peak
     ind(i)=start+index; % code to reassign peak to positive values
 end
@@ -251,17 +251,17 @@ myPVCHermit = zeros(length(ind),1);
 for j=1:length(ind) % Take into account first and last case later
     a=8;
     b=8;
-    
+
     minIndex = ind(j)-a;
     if minIndex <= 0
         minIndex = 1;
     end
-    
+
     maxIndex = ind(j)+b;
     if maxIndex > length(ind)
         maxIndex = length(ind);
     end
-    
+
     window=ecg(minIndex:maxIndex);
 
     model=ar(window,2);
@@ -294,38 +294,38 @@ The last row of the table is obtained averaging the values: as it can be seen it
 \\
 
 \providecommand{\tabularnewline}{\\}
-		
+
 \makeatother
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
-\hline 
+\hline
  & \multicolumn{2}{c|}{RR} & \multicolumn{2}{c|}{QVC area} & \multicolumn{2}{c|}{RR+QVC} & \multicolumn{2}{c|}{Hermite} & \multicolumn{2}{c|}{Combined}\tabularnewline
-\hline 
+\hline
  & SE & SP & SE & SP & SE & SP & SE & SP & SE & SP\tabularnewline
-\hline 
+\hline
 Patient 1 & 0.48 & 0.99 & 0.44 & 0.99 & 0.53 & 0.94 & 0.66 & 0.94 & 0.65 & 0.99\tabularnewline
-\hline 
+\hline
 Patient 2 & 0.78 & 1 & 0.95 & 0.98 & 0.97 & 0.99 & 0.68 & 0.91 & 0.99 & 0.98\tabularnewline
-\hline 
+\hline
 Patient 3 & 0.85 & 1 & 0.99 & 1 & 0.88 & 1 & 0.27 & 0.93 & 0.99 & 1\tabularnewline
-\hline 
+\hline
 Patient 4 & 0.54 & 0.97 & 0.05 & 0.99 & 0.20 & 0.92 & 0.83 & 0.82 & 0.56 & 0.95\tabularnewline
-\hline 
+\hline
 Patient 5 & 0.70 & 0.91 & 0 & 0.96 & 0.72 & 0.77 & 0.49 & 0.90 & 0.72 & 0.87\tabularnewline
-\hline 
+\hline
 Patient 6 & 0.15 & 0.85 & 0.01 & 0.88 & 0.06 & 0.81 & 0.85 & 0.54 & 0.16 & 0.74\tabularnewline
-\hline 
+\hline
 Patient 7 & 0.38 & 0.91 & 0.04 & 0.98 & 0.29 & 0.81 & 0.88 & 0.87 & 0.41 & 0.88\tabularnewline
-\hline 
+\hline
 Patient 8 & 0.33 & 0.90 & 0.94 & 1 & 0.72 & 0.87 & 0.36 & 0.97 & 0.96 & 0.90\tabularnewline
-\hline 
+\hline
 Patient 9 & 0.51 & 0.99 & 0.18 & 0.97 & 0.47 & 0.91 & 0.86 & 0.91 & 0.64 & 0.95\tabularnewline
-\hline 
+\hline
 Patient 10 & 0.70 & 0.99 & 0.77 & 0.99 & 0.80 & 0.98 & 0.94 & 0.32 & 0.97 & 0.98\tabularnewline
-\hline 
+\hline
 Patient 11 & 0.65 & 1 & 0.01 & 0.98 & 0.16 & 1 & 0.92 & 0.13 & 0.70 & 0.98\tabularnewline
-\hline 
+\hline
 Average & 0.55 & 0.96 & 0.40 & 0.97 & 0.53 & 0.91 & 0.70 & 0.75 & 0.70 & 0.93\tabularnewline
-\hline 
+\hline
 \end{tabular}
 
 \hfill \break
@@ -388,7 +388,7 @@ lfhfWindows(index) = LFHF;
 
 
 \subsection{Classification}
-The RR criterium requires setting the threshold (...) 
+The RR criterium requires setting the threshold (...)
 %TODO How did we set the 0.9?
 
 In order to set the threshold for the LF/HF ratio criterium as well as to test the best combination, a series of experimentation have been done with the dataset and the performance of the different criteriums was obtained.
