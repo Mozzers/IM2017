@@ -1,7 +1,7 @@
 %load ('ecg.dat')
 %fs = 1000;
 
-load ('DATPVC_renamed/DPVC_1.mat')
+load ('DATPVC_renamed/DPVC_6.mat')
 pvc = DAT.pvc;
 ecg = DAT.ecg;
 ind = DAT.ind;

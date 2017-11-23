@@ -1,13 +1,22 @@
-load ('DATAF/afdb_file-04043_episode-2.mat')
-class = DAT.class;
-annot = DAT.annot;
-ecg = DAT.ecg;
-fs = 250;
+function [se,sp] = af_result_function(patient, f1,f2,f3,w_size,tr_RR,tr_LFHF)
 
+
+load (patient)
+
+if isequal(patient,'DATF/afdb_file-8.mat')
+    class=ecg_data(:,1);
+    annot=[30001;34388];
+    e
+else
+    class = DAT.class;
+    annot = DAT.annot;
+    ecg = DAT.ecg;
+    fs = 250;
+end
 peaks = detectPeaks(ecg, fs);
 sdnnRRALL = calculateSDNNRR(peaks);
 
-window = 20;
+window = w_size;
 windowIndex = window * fs;
 
 windowCount = ceil(length(ecg) / windowIndex);
@@ -44,8 +53,8 @@ while i<=length(ecg)-windowIndex
     end
     tempEcg(isnan(tempEcg)) = [];
     % TODO
-    LF = bandpower(tempEcg, fs, [0 40]);
-    HF = bandpower(tempEcg, fs, [40 124]);
+    LF = bandpower(tempEcg, fs, [f1 f2]);
+    HF = bandpower(tempEcg, fs, [f2 f3]);
     LFHF = LF / HF;
     lfhfWindows(index) = LFHF;
 
@@ -61,10 +70,11 @@ sdnnRRWindows = sdnnRRWindows / max(sdnnRRWindows);
 sdnnRRWindows = 1 - sdnnRRWindows;
 lfhfWindows = lfhfWindows / max(lfhfWindows);
 
-myClass = length(class);
+
+myClass1 = length(class);
 for i=1:windowCount
     value = 0;
-    if sdnnRRWindows(i) < 0.9 && lfhfWindows(i) < 0.6
+    if sdnnRRWindows(i) < tr_RR
         value = 1;
     end
     for j=(i-1)*windowIndex+1:i*windowIndex+1
@@ -72,34 +82,40 @@ for i=1:windowCount
         if index>length(class)
             index = length(class);
         end
-        myClass(index) = value;
+        myClass1(index) = value;
     end
 end
 
-% test
-falsePos = 0;
-falseNeg = 0;
-truePos = 0;
-trueNeg = 0;
-for i=1:length(myClass)
-    if class(i) == myClass(i)
-        if myClass(i) == 0
-            trueNeg = trueNeg + 1;
-        else
-            truePos = truePos + 1;
+myClass2 = length(class);
+for i=1:windowCount
+    value = 0;
+    if lfhfWindows(i) < tr_LFHF
+        value = 1;
+    end
+    for j=(i-1)*windowIndex+1:i*windowIndex+1
+        index = j;
+        if index>length(class)
+            index = length(class);
         end
-    else
-        if myClass(i) == 0
-            falseNeg = falseNeg + 1;
-        else
-            falsePos = falsePos + 1;
-        end
+        myClass2(index) = value;
     end
 end
-sensitivity = truePos / (truePos + falseNeg);
-specificity = trueNeg / (falsePos + trueNeg);
 
-fprintf('==============================================\r')
-fprintf('sensitivity %f\r', sensitivity)
-fprintf('specificity %f\r', specificity)
-fprintf('==============================================\r')
+myClass3 = length(class);
+for i=1:windowCount
+    value = 0;
+    if sdnnRRWindows(i) < tr_RR && lfhfWindows(i) < tr_LFHF
+        value = 1;
+    end
+    for j=(i-1)*windowIndex+1:i*windowIndex+1
+        index = j;
+        if index>length(class)
+            index = length(class);
+        end
+        myClass3(index) = value;
+    end
+end
+
+[se(1),sp(1)]=calculateSESP(class,myClass1);
+[se(2),sp(2)]=calculateSESP(class,myClass2);
+[se(3),sp(3)]=calculateSESP(class,myClass3);

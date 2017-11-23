@@ -1,11 +1,11 @@
-function [se,sp] = af_result_function(patient, f1,f2,f3,w_size)
+function [se,sp] = af_result_function(patient, f1,f2,f3,w_size,tr_RR,tr_LFHF)
+
 
 load (patient)
 class = DAT.class;
 annot = DAT.annot;
 ecg = DAT.ecg;
 fs = 250;
-
 peaks = detectPeaks(ecg, fs);
 sdnnRRALL = calculateSDNNRR(peaks);
 
@@ -63,10 +63,11 @@ sdnnRRWindows = sdnnRRWindows / max(sdnnRRWindows);
 sdnnRRWindows = 1 - sdnnRRWindows;
 lfhfWindows = lfhfWindows / max(lfhfWindows);
 
+
 myClass1 = length(class);
 for i=1:windowCount
     value = 0;
-    if sdnnRRWindows(i) < 0.9
+    if sdnnRRWindows(i) < tr_RR
         value = 1;
     end
     for j=(i-1)*windowIndex+1:i*windowIndex+1
@@ -81,7 +82,7 @@ end
 myClass2 = length(class);
 for i=1:windowCount
     value = 0;
-    if lfhfWindows(i) < 0.4
+    if lfhfWindows(i) < tr_LFHF
         value = 1;
     end
     for j=(i-1)*windowIndex+1:i*windowIndex+1
@@ -96,7 +97,7 @@ end
 myClass3 = length(class);
 for i=1:windowCount
     value = 0;
-    if sdnnRRWindows(i) < 0.9 && lfhfWindows(i) < 0.4
+    if sdnnRRWindows(i) < tr_RR && lfhfWindows(i) < tr_LFHF
         value = 1;
     end
     for j=(i-1)*windowIndex+1:i*windowIndex+1
