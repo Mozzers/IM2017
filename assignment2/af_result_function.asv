@@ -2,10 +2,17 @@ function [se,sp] = af_result_function(patient, f1,f2,f3,w_size,tr_RR,tr_LFHF)
 
 
 load (patient)
-class = DAT.class;
-annot = DAT.annot;
-ecg = DAT.ecg;
-fs = 250;
+
+if isequal(patient,'DATF/afdb_file-8.mat')
+    class=ecg_data(:,1);
+    annot=[30001;34388];
+    e
+else
+    class = DAT.class;
+    annot = DAT.annot;
+    ecg = DAT.ecg;
+    fs = 250;
+end
 peaks = detectPeaks(ecg, fs);
 sdnnRRALL = calculateSDNNRR(peaks);
 
