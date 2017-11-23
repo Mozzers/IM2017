@@ -1,5 +1,4 @@
 \documentclass[a4paper,titlepage]{article}
-\usepackage[italian]{babel}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage[utf8]{inputenc}
@@ -235,15 +234,15 @@ Finally, the code is as follows:
 for i=1:length(ind)
     if(ind(i)>50 && ind(i)+50<length(ecg))
         start=ind(i)-50;
-        finish=ind(i)+50;
+        finish=ind(i)+50;        
     elseif (ind(i)<50) % case first peak is before 50
         start=1;
         finish=ind(i)+50;
     else % case for last peak
         start=ind(i)-50;
         finish=length(ecg);
-    end
-    A=ecg(start:finish);
+    end 
+    A=ecg(start:finish); 
     [~,index]=max(A); % find positive peak
     ind(i)=start+index; % code to reassign peak to positive values
 end
@@ -252,17 +251,17 @@ myPVCHermit = zeros(length(ind),1);
 for j=1:length(ind) % Take into account first and last case later
     a=8;
     b=8;
-
+    
     minIndex = ind(j)-a;
     if minIndex <= 0
         minIndex = 1;
     end
-
+    
     maxIndex = ind(j)+b;
     if maxIndex > length(ind)
         maxIndex = length(ind);
     end
-
+    
     window=ecg(minIndex:maxIndex);
 
     model=ar(window,2);
@@ -295,38 +294,38 @@ The last row of the table is obtained averaging the values: as it can be seen it
 \\
 
 \providecommand{\tabularnewline}{\\}
-
+		
 \makeatother
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
-\hline
+\hline 
  & \multicolumn{2}{c|}{RR} & \multicolumn{2}{c|}{QVC area} & \multicolumn{2}{c|}{RR+QVC} & \multicolumn{2}{c|}{Hermite} & \multicolumn{2}{c|}{Combined}\tabularnewline
-\hline
+\hline 
  & SE & SP & SE & SP & SE & SP & SE & SP & SE & SP\tabularnewline
-\hline
+\hline 
 Patient 1 & 0.48 & 0.99 & 0.44 & 0.99 & 0.53 & 0.94 & 0.66 & 0.94 & 0.65 & 0.99\tabularnewline
-\hline
+\hline 
 Patient 2 & 0.78 & 1 & 0.95 & 0.98 & 0.97 & 0.99 & 0.68 & 0.91 & 0.99 & 0.98\tabularnewline
-\hline
+\hline 
 Patient 3 & 0.85 & 1 & 0.99 & 1 & 0.88 & 1 & 0.27 & 0.93 & 0.99 & 1\tabularnewline
-\hline
+\hline 
 Patient 4 & 0.54 & 0.97 & 0.05 & 0.99 & 0.20 & 0.92 & 0.83 & 0.82 & 0.56 & 0.95\tabularnewline
-\hline
+\hline 
 Patient 5 & 0.70 & 0.91 & 0 & 0.96 & 0.72 & 0.77 & 0.49 & 0.90 & 0.72 & 0.87\tabularnewline
-\hline
+\hline 
 Patient 6 & 0.15 & 0.85 & 0.01 & 0.88 & 0.06 & 0.81 & 0.85 & 0.54 & 0.16 & 0.74\tabularnewline
-\hline
+\hline 
 Patient 7 & 0.38 & 0.91 & 0.04 & 0.98 & 0.29 & 0.81 & 0.88 & 0.87 & 0.41 & 0.88\tabularnewline
-\hline
+\hline 
 Patient 8 & 0.33 & 0.90 & 0.94 & 1 & 0.72 & 0.87 & 0.36 & 0.97 & 0.96 & 0.90\tabularnewline
-\hline
+\hline 
 Patient 9 & 0.51 & 0.99 & 0.18 & 0.97 & 0.47 & 0.91 & 0.86 & 0.91 & 0.64 & 0.95\tabularnewline
-\hline
+\hline 
 Patient 10 & 0.70 & 0.99 & 0.77 & 0.99 & 0.80 & 0.98 & 0.94 & 0.32 & 0.97 & 0.98\tabularnewline
-\hline
+\hline 
 Patient 11 & 0.65 & 1 & 0.01 & 0.98 & 0.16 & 1 & 0.92 & 0.13 & 0.70 & 0.98\tabularnewline
-\hline
+\hline 
 Average & 0.55 & 0.96 & 0.40 & 0.97 & 0.53 & 0.91 & 0.70 & 0.75 & 0.70 & 0.93\tabularnewline
-\hline
+\hline 
 \end{tabular}
 
 \hfill \break
@@ -342,21 +341,108 @@ A visual rapresentation of the performances can be seen in the following graph, 
 
 
 \section{AF}
-For AF detection, two different criterium have been used: a
+Atrial fibrillation, rather than an actual istantaneous occurence of an event, is a condition that affects interval of times of a patient.
+Because of this, every analysis is performed after windowing the signal: thus every window is recognized as being an occurence of AF or not. Subsequently, the single timestep belonging to a window are classified as 0s or 1s following the window classification.
+The implemented code takes into account windows of size 20.
+For AF detection, two different criterium have been used: irregularities in the R-R intervals and power content of the ecg spectrum.
 \subsection{Methods}
+\subsubsection{R-R regularity}
 - RR intervals: same as for PVC just for all the different windows, than we compare the window values and try to get smart assumptions
-- frequency: just folllowing the slides -> output is shit TODO ??
+
+\subsubsection{LF/HF ratio}
+The second criterium chosen to find an atrial fibrillation works with the power content of the signal's frequences: since a fibrillation is characterized by the presence of noise in the ECG data, this can be easily detected in the frequency domain.
+In fact, a "regular" heart rate spectrum has most of its power in the low part of the spectrum, which considering a usual ecg signal is the range of frequencies  before and around 40Hz.
+However, before of actually analizying the spectrum, since the QRS complex carries significant components in higher frequencis, the signal has to be "cleaned", removing the actual QRS part.
+In order to do so, given a peak, this code chooses the time steps right before and after the peak and "cleans" the data:
+
+\begin{lstlisting}
+front = 0.06;
+frontIndex = front * fs;
+back = 0.02;
+backIndex = back * fs;
+for j=1:length(tempPeaks)
+	minIndex = tempPeaks(j)-frontIndex;
+	maxIndex = tempPeaks(j)+backIndex;
+	if minIndex < 1
+		minIndex = 1;
+	end
+	if maxIndex > length(tempEcg)
+		maxIndex = length(tempEcg);
+	end
+
+	for k=minIndex:maxIndex
+		tempEcg(k) = NaN;
+	end
+end
+tempEcg(isnan(tempEcg)) = [];
+\end{lstlisting}
+
+After this, the power information is retrieved using MATLAB's function bandpower(). Then the ratio is stored to actually detect an AF occurrence. If the ratio is lower than a certain threshold (chosen after testing various configurations, as it will be shown), it means that the higher frequencies (in this case from 40 to 125, nyquist frequence) retain more power than usual and that the ecg has "noise" associated to fibrillation.
+
+\begin{lstlisting}
+LF = bandpower(tempEcg, fs, [0 40]);
+HF = bandpower(tempEcg, fs, [40 124]);
+LFHF = LF / HF;
+lfhfWindows(index) = LFHF;
+\end{lstlisting}
 
 
 \subsection{Classification}
-For the AF detection we consider the difference of the RR intervals and the frequency for different areas of the ecg.\\\\
-$sdnnRRWindows(i) < 0.9 \&\& lfhfWindows(i) < 0.4$
-\\\\
-blabla TODO
+The RR criterium requires setting the threshold (...) 
+%TODO How did we set the 0.9?
 
+In order to set the threshold for the LF/HF ratio criterium as well as to test the best combination, a series of experimentation have been done with the dataset and the performance of the different criteriums was obtained.
+The two criteriums were combined using an and rule:
+\\$sdnnRRWindows(i) < thresholdRR \&\& lfhfWindows(i) < tresholdLFHF$\\
+The results of the testing are reported in the following table: for each criterium the left column is sensitivity, and the right one is specificity.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Parameter tuning}
+    \begin{tabular}{c |rr|rr|rr|}
+    \multicolumn{1}{c|}{Threshold} & \multicolumn{2}{c|}{RR regularity} & \multicolumn{2}{c|}{LF/HF ratio} & \multicolumn{2}{c|}{Combination} \\ \hline
+    0,4   & 1     & 0,431257 & 0,732699 & 0,346755 & 0,732699 & 0,571755 \\
+    0,5   & 1     & 0,431257 & 0,893313 & 0,280466 & 0,893313 & 0,547132 \\
+    0,6   & 1     & 0,431257 & 0,954536 & 0,229618 & 0,954536 & 0,505544 \\
+    \end{tabular}%
+  \label{tab:addlabel}%
+\end{table}%
+
+The threshold setting does not influence the R-R regularity criterium, but in the LF/HF ratio it has a strong influence on the sensitivity and specificity. Making it higher means that more samples are classified as AF, actually improving sensitivity at the cost of a loss of specificity.
+Both criteriums alone have a really good sensitivity while poor specificity, which is to say the are too shallow in classifying samples as AF occurences. The combination of the two attempts to cope with this and therefore shows significant improvement on the specificity, performing better than both criteriums alone. However it is to be noted that being it an AND, combining the values bounds the sensitivity to the lowest possible, specifically the LF/HF criterium.
+As it can be seen, the best values are obtained with the combination of the two methods, when the threshold for the LF/HF ratio is set to 0.6.  Given the premises, this threshold allows the best tradeoff for sensitivity gain/specificity loss, with combination performing better than the other two criteriums.
 
 \subsection{Results}
-TODO Gerardo
+
+% Table generated by Excel2LaTeX from sheet 'Foglio2'
+\begin{table}[htbp]
+  \centering
+  \caption{Add caption}
+    \begin{tabular}{rrrrrr}
+    1     & 0,997183 & 0,954476 & 0     & 0,954476 & 0,997183 \\
+    1     & 0,87055 & 0,419718 & 0,87055 & 0,419718 & 0,87055 \\
+    1     & 0,5   & 1     & 0,083333 & 1     & 0,583333 \\
+    1     & 0,323667 & 0,854736 & 0     & 0,854736 & 0,323667 \\
+    1     & 0,666667 & 1     & 0,23825 & 1     & 0,73825 \\
+    1     & 0,666667 & 1     & 0,716117 & 1     & 0,882783 \\
+    1     & 0,75875 & 1     & 0,592083 & 1     & 0,842083 \\
+    1     & 0,166667 & 1     & 0,166667 & 1     & 0,25 \\
+    1     & 0,166667 & 1     & 0,023533 & 1     & 0,1902 \\
+    1     & 0,083333 & 1     & 0,166667 & 1     & 0,25 \\
+    1     & 0,76415 & 1     & 0,25  & 1     & 0,76415 \\
+    1     & 0,73465 & 1     & 0,083333 & 1     & 0,817983 \\
+    1     & 0,25  & 1     & 0,083333 & 1     & 0,25 \\
+    1     & 0,73035 & 1     & 0,25  & 1     & 0,73035 \\
+    1     & 0     & 1     & 0,083333 & 1     & 0,083333 \\
+    1     & 0     & 1     & 0,192583 & 1     & 0,192583 \\
+    1     & 0,083333 & 1     & 0,25  & 1     & 0,25 \\
+    1     & 0     & 0,952713 & 0,083333 & 0,952713 & 0,083333 \\
+    1     & 0,431257 & 0,954536 & 0,229618 & 0,954536 & 0,505544 \\
+    \end{tabular}%
+  \label{tab:addlabel}%
+\end{table}%
+
+
 
 \section{Conclusions}
 
