@@ -1,4 +1,4 @@
-load ('DATAF/afdb_file-04043_episode-1.mat')
+load ('DATAF/afdb_file-04043_episode-2.mat')
 class = DAT.class;
 annot = DAT.annot;
 ecg = DAT.ecg;
@@ -44,8 +44,8 @@ while i<=length(ecg)-windowIndex
     end
     tempEcg(isnan(tempEcg)) = [];
     % TODO
-    LF = bandpower(tempEcg, fs, [0.04 0.15]);
-    HF = bandpower(tempEcg, fs, [0.15 0.4]);
+    LF = bandpower(tempEcg, fs, [0 40]);
+    HF = bandpower(tempEcg, fs, [40 124]);
     LFHF = LF / HF;
     lfhfWindows(index) = LFHF;
 
