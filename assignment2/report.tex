@@ -15,11 +15,11 @@
 \usepackage{pbox}
 \usepackage{tabularx}
 \linespread{1.3}
-\newcommand{\subtitle}[1]{%
-  \posttitle{%
+\newcommand{\subtitle}[1]{
+  \posttitle{
     \par\end{center}
     \begin{center}\large#1\end{center}
-    \vskip0.5em}%
+    \vskip0.5em}
 }
 \renewcommand{\lstlistingname}{Code}
 
@@ -87,8 +87,8 @@ The performances of the systems will be compared using sensitivity and specifici
 
 \section{Feature Extraction}
 The first module implemented in order to perform detection of both PVC and AF is a feature extracting function that allows the acquisition of the R peaks in the shape of an ECG signal. These peaks, in fact, are used to acquire the relevant information about an ECG signal, rapresenting each an atomic event of pulsation.\\
-The function "detectPeaks()" takes as input the ecg raw data and the sampling frequence and outputs a vector of indexes corresponding to the peaks in the data.
-The code does some pre-filtering on the data itself before of computing the peaks, as it can be seen:
+The function $detectPeaks()$ takes as input the ecg raw data and the sampling frequence and outputs a vector of indexes corresponding to the peaks in the data.
+The code does some pre-filtering on the data itself before computing the peaks, as it can be seen:
 \begin {lstlisting}[caption=Pre-filtering]
 fs = frequence;
 
@@ -168,7 +168,7 @@ The last code snippet has the task of readjusting the position of the found peak
 
 \begin{figure}[h!]
 
-\hspace*{-\dimexpr\oddsidemargin+1in\relax}\makebox[\paperwidth]{%
+\hspace*{-\dimexpr\oddsidemargin+1in\relax}\makebox[\paperwidth]{
 \includegraphics[width=1.4\textwidth,height=10cm]{peaks.png}}\hspace*{-\paperwidth}
 \end{figure}
 
@@ -234,15 +234,15 @@ Finally, the code is as follows:
 for i=1:length(ind)
     if(ind(i)>50 && ind(i)+50<length(ecg))
         start=ind(i)-50;
-        finish=ind(i)+50;        
+        finish=ind(i)+50;
     elseif (ind(i)<50) % case first peak is before 50
         start=1;
         finish=ind(i)+50;
     else % case for last peak
         start=ind(i)-50;
         finish=length(ecg);
-    end 
-    A=ecg(start:finish); 
+    end
+    A=ecg(start:finish);
     [~,index]=max(A); % find positive peak
     ind(i)=start+index; % code to reassign peak to positive values
 end
@@ -251,17 +251,17 @@ myPVCHermit = zeros(length(ind),1);
 for j=1:length(ind) % Take into account first and last case later
     a=8;
     b=8;
-    
+
     minIndex = ind(j)-a;
     if minIndex <= 0
         minIndex = 1;
     end
-    
+
     maxIndex = ind(j)+b;
     if maxIndex > length(ind)
         maxIndex = length(ind);
     end
-    
+
     window=ecg(minIndex:maxIndex);
 
     model=ar(window,2);
@@ -294,38 +294,38 @@ The last row of the table is obtained averaging the values: as it can be seen it
 \\
 
 \providecommand{\tabularnewline}{\\}
-		
+
 \makeatother
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
-\hline 
+\hline
  & \multicolumn{2}{c|}{RR} & \multicolumn{2}{c|}{QVC area} & \multicolumn{2}{c|}{RR+QVC} & \multicolumn{2}{c|}{Hermite} & \multicolumn{2}{c|}{Combined}\tabularnewline
-\hline 
+\hline
  & SE & SP & SE & SP & SE & SP & SE & SP & SE & SP\tabularnewline
-\hline 
+\hline
 Patient 1 & 0.48 & 0.99 & 0.44 & 0.99 & 0.53 & 0.94 & 0.66 & 0.94 & 0.65 & 0.99\tabularnewline
-\hline 
+\hline
 Patient 2 & 0.78 & 1 & 0.95 & 0.98 & 0.97 & 0.99 & 0.68 & 0.91 & 0.99 & 0.98\tabularnewline
-\hline 
+\hline
 Patient 3 & 0.85 & 1 & 0.99 & 1 & 0.88 & 1 & 0.27 & 0.93 & 0.99 & 1\tabularnewline
-\hline 
+\hline
 Patient 4 & 0.54 & 0.97 & 0.05 & 0.99 & 0.20 & 0.92 & 0.83 & 0.82 & 0.56 & 0.95\tabularnewline
-\hline 
+\hline
 Patient 5 & 0.70 & 0.91 & 0 & 0.96 & 0.72 & 0.77 & 0.49 & 0.90 & 0.72 & 0.87\tabularnewline
-\hline 
+\hline
 Patient 6 & 0.15 & 0.85 & 0.01 & 0.88 & 0.06 & 0.81 & 0.85 & 0.54 & 0.16 & 0.74\tabularnewline
-\hline 
+\hline
 Patient 7 & 0.38 & 0.91 & 0.04 & 0.98 & 0.29 & 0.81 & 0.88 & 0.87 & 0.41 & 0.88\tabularnewline
-\hline 
+\hline
 Patient 8 & 0.33 & 0.90 & 0.94 & 1 & 0.72 & 0.87 & 0.36 & 0.97 & 0.96 & 0.90\tabularnewline
-\hline 
+\hline
 Patient 9 & 0.51 & 0.99 & 0.18 & 0.97 & 0.47 & 0.91 & 0.86 & 0.91 & 0.64 & 0.95\tabularnewline
-\hline 
+\hline
 Patient 10 & 0.70 & 0.99 & 0.77 & 0.99 & 0.80 & 0.98 & 0.94 & 0.32 & 0.97 & 0.98\tabularnewline
-\hline 
+\hline
 Patient 11 & 0.65 & 1 & 0.01 & 0.98 & 0.16 & 1 & 0.92 & 0.13 & 0.70 & 0.98\tabularnewline
-\hline 
+\hline
 Average & 0.55 & 0.96 & 0.40 & 0.97 & 0.53 & 0.91 & 0.70 & 0.75 & 0.70 & 0.93\tabularnewline
-\hline 
+\hline
 \end{tabular}
 
 \hfill \break
@@ -333,7 +333,7 @@ A visual rapresentation of the performances can be seen in the following graph, 
 
 \begin{figure}[h!]
 
-\hspace*{-\dimexpr\oddsidemargin+1in\relax}\makebox[\paperwidth]{%
+\hspace*{-\dimexpr\oddsidemargin+1in\relax}\makebox[\paperwidth]{
 \includegraphics[width=1.4\textwidth,height=12cm]{resultsPVC.png}}\hspace*{-\paperwidth}
 \end{figure}
 
@@ -347,7 +347,7 @@ The implemented code takes into account windows of size 20.
 For AF detection, two different criterium have been used: irregularities in the R-R intervals and power content of the ecg spectrum.
 \subsection{Methods}
 \subsubsection{R-R regularity}
-- RR intervals: same as for PVC just for all the different windows, than we compare the window values and try to get smart assumptions
+To detect the R-R regularity we proceed, like in the PVC case, just for each of the windows.
 
 \subsubsection{LF/HF ratio}
 The second criterium chosen to find an atrial fibrillation works with the power content of the signal's frequences: since a fibrillation is characterized by the presence of noise in the ECG data, this can be easily detected in the frequency domain.
@@ -388,8 +388,19 @@ lfhfWindows(index) = LFHF;
 
 
 \subsection{Classification}
-The RR criterium requires setting the threshold (...) 
-%TODO How did we set the 0.9?
+In order to set the threshold for the R-R regularity criterium, a series of experimentation have been done with the dataset and the performance was obtained. As you can see in the following table, we decided to choose a threshold of 0.8, because of the best observance for sensitivity and specificity.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Parameter tuning R-R regularity}
+    \begin{tabular}{c |rr|rr|rr|}
+    \multicolumn{1}{c|}{Threshold} & \multicolumn{2}{c|}{R-R regularity} & \\ \hline
+    0,7   & 0.787981     & 0.676235 \\
+    0,8   & 0.916992     & 0.592045 \\
+    0,9   & 1     & 0.431257 \\
+    \end{tabular}
+  \label{tab:addlabel}
+\end{table}
 
 In order to set the threshold for the LF/HF ratio criterium as well as to test the best combination, a series of experimentation have been done with the dataset and the performance of the different criteriums was obtained.
 The two criteriums were combined using an and rule:
@@ -398,22 +409,22 @@ The results of the testing are reported in the following table: for each criteri
 
 \begin{table}[htbp]
   \centering
-  \caption{Parameter tuning}
+  \caption{Parameter tuning LF/HF ratio}
     \begin{tabular}{c |rr|rr|rr|}
-    \multicolumn{1}{c|}{Threshold} & \multicolumn{2}{c|}{RR regularity} & \multicolumn{2}{c|}{LF/HF ratio} & \multicolumn{2}{c|}{Combination} \\ \hline
-    0,4   & 1     & 0,431257 & 0,732699 & 0,346755 & 0,732699 & 0,571755 \\
-    0,5   & 1     & 0,431257 & 0,893313 & 0,280466 & 0,893313 & 0,547132 \\
-    0,6   & 1     & 0,431257 & 0,954536 & 0,229618 & 0,954536 & 0,505544 \\
-    \end{tabular}%
-  \label{tab:addlabel}%
-\end{table}%
+    \multicolumn{1}{c|}{Threshold} & \multicolumn{2}{c|}{LF/HF ratio} & \multicolumn{2}{c|}{Combination} \\ \hline
+    0,4 & 0,732699 & 0,346755 & 0.649691 & 0.709394 \\
+    0,5 & 0,893313 & 0,280466 & 0.810305 & 0.684772 \\
+    0,6 & 0,954536 & 0,229618 & 0.871527 & 0.657072 \\
+    \end{tabular}
+  \label{tab:addlabel}
+\end{table}
 
-The threshold setting does not influence the R-R regularity criterium, but in the LF/HF ratio it has a strong influence on the sensitivity and specificity. Making it higher means that more samples are classified as AF, actually improving sensitivity at the cost of a loss of specificity.
-Both criteriums alone have a really good sensitivity while poor specificity, which is to say the are too shallow in classifying samples as AF occurences. The combination of the two attempts to cope with this and therefore shows significant improvement on the specificity, performing better than both criteriums alone. However it is to be noted that being it an AND, combining the values bounds the sensitivity to the lowest possible, specifically the LF/HF criterium.
+The threshold has a strong influence on the sensitivity and specificity. Making it higher means that more samples are classified as AF, actually improving sensitivity at the cost of a loss of specificity.
+Both criteriums alone have a really good sensitivity while poor specificity, which is to say there are too shallow in classifying samples as AF occurences. The combination of the two attempts to cope with this and therefore shows significant improvement on the specificity, performing better than both criteriums alone. However it is to be noted that being it an AND, combining the values bounds the sensitivity to the lowest possible, specifically the LF/HF criterium.
 As it can be seen, the best values are obtained with the combination of the two methods, when the threshold for the LF/HF ratio is set to 0.6.  Given the premises, this threshold allows the best tradeoff for sensitivity gain/specificity loss, with combination performing better than the other two criteriums.
 
 \subsection{Results}
-Considering the previous results the final classifier will includes the combination of the two criterium, with thresholds of 0.9 and 0.6.
+Considering the previous results the final classifier will includes the combination of the two criterium, with thresholds of 0.8 and 0.6.
 Here are the resulting parameters for each patient, where the left column for each criterium is the sensitivity and the right the specificity.
 
 % Table generated by Excel2LaTeX from sheet 'Foglio2'
@@ -421,7 +432,7 @@ Here are the resulting parameters for each patient, where the left column for ea
   \centering
   \caption{Classificator results}
     \begin{tabular}{c |rr|rr|rr|}
-    \multicolumn{1}{c|}{Patient/Dataset} & \multicolumn{2}{c|}{RR regularity} & \multicolumn{2}{c|}{LF/HF ratio} & \multicolumn{2}{c|}{Combination} \\ \hline
+    \multicolumn{1}{c|}{Patient/Dataset} & \multicolumn{2}{c|}{RR regularity} & \multicolumn{2}{c|}{LF/HF ratio} & \multicolumn{2}{c|}{Combination} & \\ \hline
     04043 episode 1 & 1     & 0,997183 & 0,954476 & 0     & 0,954476 & 0,997183 \\
     04043 episode 2 & 1     & 0,87055 & 0,419718 & 0,87055 & 0,419718 & 0,87055 \\
     04043 episode 3 & 1     & 0,5   & 1     & 0,083333 & 1     & 0,583333 \\
@@ -429,7 +440,6 @@ Here are the resulting parameters for each patient, where the left column for ea
     04048 episode 1 & 1     & 0,666667 & 1     & 0,23825 & 1     & 0,73825 \\
     04048 episode 2 & 1     & 0,666667 & 1     & 0,716117 & 1     & 0,882783 \\
     04048 episode 3 & 1     & 0,75875 & 1     & 0,592083 & 1     & 0,842083 \\
-    04048 episode 4 & 1     & 0,166667 & 1     & 0,166667 & 1     & 0,25 \\
     04746 episode 1 & 1     & 0,166667 & 1     & 0,023533 & 1     & 0,1902 \\
     04746 episode 2 & 1     & 0,083333 & 1     & 0,166667 & 1     & 0,25 \\
     04746 episode 3 & 1     & 0,76415 & 1     & 0,25  & 1     & 0,76415 \\
@@ -442,18 +452,10 @@ Here are the resulting parameters for each patient, where the left column for ea
     08219 episode 3 & 1     & 0     & 0,952713 & 0,083333 & 0,952713 & 0,083333 \\
     08219 episode 4 & 1     & 0,431257 & 0,954536 & 0,229618 & 0,954536 & 0,505544 \\
 
-    \end{tabular}%
-  \label{tab:addlabel}%
-\end{table}%
+    \end{tabular}
+  \label{tab:addlabel}
+\end{table}
 
 \clearpage
-
-\section{Conclusions}
-
-\subsection{PVC}
-MUITO BEM!!!
-
-\subsection{AF}
-0.5 * muito bem!
 
 \end{document}
