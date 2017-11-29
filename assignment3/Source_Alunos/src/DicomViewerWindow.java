@@ -1,6 +1,9 @@
 import java.util.Vector;
 
 import javax.swing.event.ListSelectionListener;
+
+import fr.apteryx.imageio.dicom.Plugin;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.*;
@@ -40,7 +43,11 @@ public class DicomViewerWindow implements Runnable {
 
     public void setImages(final BufferedImage []bi, int interval)
     {
-		JFrame jf = new JFrame();
+        Plugin.setLicenseKey("NM73KIZUPKHLFLAQM5L0V9U");
+
+        ImageIO.scanForPlugins();
+		/*
+        JFrame jf = new JFrame();
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		final Rectangle bounds = new Rectangle(0, 0, bi[0].getWidth(), bi[0].getHeight());
 		JPanel panel = new JPanel() {
@@ -58,10 +65,8 @@ public class DicomViewerWindow implements Runnable {
 		jf.getContentPane().add(panel);
 		panel.setPreferredSize(new Dimension(bi[0].getWidth(), bi[0].getHeight()));
 		jf.pack();
-		jf.setVisible(true);
+		jf.setVisible(true);*/
 
-		
-    	/*
         sem_data.espera();
         if (bi!=null && bi.length>0) images = bi;
         if (interval<=0) displayInterval=100;
@@ -82,7 +87,7 @@ public class DicomViewerWindow implements Runnable {
         panel.setPreferredSize(new Dimension(sizex, sizey));
 
         sem_data.notifica();
-        */
+        
         
         
         

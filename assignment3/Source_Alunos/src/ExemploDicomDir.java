@@ -11,6 +11,7 @@ import fr.apteryx.imageio.dicom.DataElement;
 import fr.apteryx.imageio.dicom.DataSet;
 import fr.apteryx.imageio.dicom.DicomMetadata;
 import fr.apteryx.imageio.dicom.DicomReader;
+import fr.apteryx.imageio.dicom.Plugin;
 
 import javax.imageio.ImageIO;
 import javax.imageio.event.IIOReadWarningListener;
@@ -250,41 +251,40 @@ public class ExemploDicomDir extends javax.swing.JFrame implements ListSelection
 	}
 
 	public void valueChanged(ListSelectionEvent e) {
-		// if(examProp.frameAtributos != null)
-		// examProp.frameAtributos.dispose();
 		DefaultListSelectionModel auxiliar = (DefaultListSelectionModel) (e.getSource());
 		if (auxiliar.equals(list) && e.getValueIsAdjusting() == false) {
 			Atributes attTemp = (Atributes) atributosExames.elementAt(e.getFirstIndex());
 			txtArea.setText(attTemp.regImage.toString());
-		}
+			Plugin.setLicenseKey("NM73KIZUPKHLFLAQM5L0V9U");
+			ImageIO.scanForPlugins();
 
-		DicomViewerWindow d = new DicomViewerWindow(this);
+			Iterator readers = ImageIO.getImageReadersByFormatName("dicom");
+			DicomReader reader = (DicomReader) readers.next();
+			reader.addIIOReadWarningListener(new WarningListener());
+			DataSet imAtt = atributosExames.get(0).getImageAtributes();
+			DataElement a = (DataElement) imAtt.get(Tag.ReferencedFileID);
+			String[] fs = (String[]) a.value;
+			String path = fs[0] + "\\" + fs[1];
+			File f1 = new File(txtPath.getText() + path);
+			try {
+				reader.setInput(new FileImageInputStream(f1));
+				if (reader.getNumImages(true) < 1) {
+					System.err.println("No pixel data");
+					System.exit(1);
+				}
+				DicomMetadata dmd = reader.getDicomMetadata();
+				BufferedImage[] bi = new BufferedImage[reader.getNumImages(true)];
+				for (int i = 0; i < reader.getNumImages(true); i++)
+					bi[i] = reader.read(i);
+				DicomViewerWindow d = new DicomViewerWindow(this);
+				d.setImages(bi, 150);
 
-		Iterator readers = ImageIO.getImageReadersByFormatName("dicom");
-		DicomReader reader = (DicomReader) readers.next();
-		reader.addIIOReadWarningListener(new WarningListener());
-		DataSet imAtt = atributosExames.get(0).getImageAtributes();
-		DataElement a = (DataElement) imAtt.get(Tag.ReferencedFileID);
-		String[] fs = (String[]) a.value;
-		String path = fs[0] + "\\" + fs[1];
-		File f1 = new File(txtPath.getText() + path);
-		try {
-			reader.setInput(new FileImageInputStream(f1));
-			if (reader.getNumImages(true) < 1) {
-				System.err.println("No pixel data");
-				System.exit(1);
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
-			DicomMetadata dmd = reader.getDicomMetadata();
-			BufferedImage[] bi = new BufferedImage[reader.getNumImages(true)];
-			for (int i=0; i<reader.getNumImages(true); i++)
-				bi[i]=reader.read(i);
-			d.setImages(bi,100);
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
 		}
-		// d.setImages(bi, interval);
 	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
