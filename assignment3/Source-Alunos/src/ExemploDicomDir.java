@@ -17,6 +17,7 @@ public class ExemploDicomDir extends javax.swing.JFrame implements ListSelection
     
     /** Creates new form ExemploDicomDir */
     Vector atributosExames;
+    int lastIndex = 0;
     DefaultListSelectionModel list;
     public ExemploDicomDir() {
         initComponents();
@@ -174,7 +175,7 @@ public class ExemploDicomDir extends javax.swing.JFrame implements ListSelection
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      
+
 // TODO add your handling code here:
        try
        {        
@@ -258,7 +259,14 @@ public class ExemploDicomDir extends javax.swing.JFrame implements ListSelection
         DefaultListSelectionModel auxiliar = (DefaultListSelectionModel)(e.getSource());
         if(auxiliar.equals(list) && e.getValueIsAdjusting() == false)
         {
-            Atributes attTemp = (Atributes)atributosExames.elementAt(e.getFirstIndex());
+            Atributes attTemp;
+            if (this.lastIndex == e.getLastIndex()) {
+                attTemp = (Atributes)atributosExames.elementAt(e.getFirstIndex());
+                this.lastIndex = e.getFirstIndex();
+            } else {
+                attTemp = (Atributes) atributosExames.elementAt(e.getLastIndex());
+                this.lastIndex = e.getLastIndex();
+            }
             txtArea.setText(attTemp.regImage.toString());
         }
     }
