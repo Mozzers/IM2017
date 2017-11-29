@@ -18,6 +18,7 @@ public class ReadDicomDir {
     public void ReadDicomDir()
     {
         Plugin.setLicenseKey("NM73KIZUPKHLFLAQM5L0V9U"); 
+		ImageIO.scanForPlugins();
         filesExames = new Vector();
         atributosExames = new Vector();
         frameTime = new Vector();        
