@@ -9,3 +9,4 @@
 *.orig
 *.pdf
 */DICOM/
+dicomDir.txt
