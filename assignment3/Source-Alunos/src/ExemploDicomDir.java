@@ -197,6 +197,8 @@ public class ExemploDicomDir extends javax.swing.JFrame implements ListSelection
         results = dirRead.leDirectorio(txtPath.getText(),atributosExames); 
         }catch(Exception e)
         {
+        	e.printStackTrace();
+        	System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(this, "Invalid DicomDir",
 				                       "Warning", JOptionPane.WARNING_MESSAGE);
         }

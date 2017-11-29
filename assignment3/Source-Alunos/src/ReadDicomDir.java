@@ -35,26 +35,41 @@ por uma Directory Record do tipo IMAGE. Uma forma fácil de obter
 essa informação é percorrendo os Directory Records (DR) do
 DICOMDIR até atingir DRs do tipo IMAGE.*/
     	
+    	Plugin.setLicenseKey("NM73KIZUPKHLFLAQM5L0V9U"); 
        	File f = new File(path+"DICOMDIR");    	
-    	Vector<FileSet.Record> records = new Vector<FileSet.Record>();
-        FileSet fs = new FileSet(f,null); 
+    	Vector<Vector<String>> records = new Vector<Vector<String>>();
+        FileSet fs = new FileSet(f,null);
         FileSet.Directory root = fs.getRootDirectory();
     	int n =root.getNumRecords();
     	for (int i=0; i<n; i++){
     		FileSet.Record r=root.getRecord(i);
     		DataSet att = r.getAttributes();
     		FileSet.Directory study = r.getLowerLevelDirectory(); 
+    		DataSet patientAttributes = root.getRecord(i).getAttributes();    		
     		for (int j=0; j<study.getNumRecords(); j++){
+    			DataSet studyAttributes = study.getRecord(j).getAttributes();
     			FileSet.Directory series = study.getRecord(j).getLowerLevelDirectory();
     			for(int k=0; k<series.getNumRecords();k++){
+    				DataSet seriesAttributes = series.getRecord(k).getAttributes();
     				FileSet.Directory exams = series.getRecord(k).getLowerLevelDirectory();
     				for(int l=0; l<exams.getNumRecords();l++){
     	    			/* Add attributes from images */
     	    			FileSet.Record examRecord = exams.getRecord(l);
     	    			if ("IMAGE".equals(examRecord.getType())){
-    	    				
-    	    				records.addElement(examRecord);
-    	    				atributosExames.addElement(examRecord.getAttributes());
+        	    			/* Add attributes from images */
+        					DataSet imageAttributes= examRecord.getAttributes();
+        	    			FileSet.Record imageRecord = examRecord;
+        	    			//Add exam to vector
+        	    			atributosExames.add(new Atributes(patientAttributes,studyAttributes,seriesAttributes,imageAttributes));
+        	    			//frameTime.add((Float) imageRecord.getAttribute(Tag.FrameTime));
+        	    			//examImagesPaths.add(path + (imageRecord.getFile()).getPath());
+        	    			//directoriesRecordTypes.add((String)imageRecord.getAttribute(Tag.DirectoryRecordType));
+    	    				Vector<String> row = new Vector<String>();
+    	    				row.add("a");
+    	    				row.add("b");
+    	    				row.add("c");
+    	    				row.add("d");
+        	    			records.addElement(row);
     	    			}
     	    			//Add exam to vector
     	    			//examsAttributes.add(new Attributes(patientAttributes,studyAttributes,seriesAttributes,imageAttributes));
