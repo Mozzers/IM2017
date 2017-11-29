@@ -1,17 +1,13 @@
-import java.util.Vector;
-
-import javax.swing.event.ListSelectionListener;
-
-import fr.apteryx.imageio.dicom.Plugin;
-
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.imageio.ImageIO;
-import java.util.*;
-import java.io.*;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class DicomViewerWindow implements Runnable {
 	private JFrame jf;
@@ -43,8 +39,7 @@ public class DicomViewerWindow implements Runnable {
 	}
 
 	public void setImages(final BufferedImage[] bi, int interval) {
-		Plugin.setLicenseKey("NM73KIZUPKHLFLAQM5L0V9U");
-		ImageIO.scanForPlugins();
+
 		sem_data.espera();
 		if (bi != null && bi.length > 0)
 			images = bi;

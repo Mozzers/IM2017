@@ -1,33 +1,32 @@
 import java.io.File;
-import java.util.Iterator;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
 
 import fr.apteryx.imageio.dicom.DataSet;
-import fr.apteryx.imageio.dicom.DicomReader; 
-import fr.apteryx.imageio.dicom.FileSet; 
-import fr.apteryx.imageio.dicom.Tag; 
+import fr.apteryx.imageio.dicom.FileSet;
 import fr.apteryx.imageio.dicom.Plugin;
+import fr.apteryx.imageio.dicom.Tag;
 
 public class ReadDicomDir {
 
     Vector filesExames,atributosExames,frameTime; 
     
     
-    public void ReadDicomDir()
+    public ReadDicomDir()
     {
-        Plugin.setLicenseKey("NM73KIZUPKHLFLAQM5L0V9U"); 
-		ImageIO.scanForPlugins();
-        filesExames = new Vector();
+		Plugin.setLicenseKey("NM73KIZUPKHLFLAQM5L0V9U");
+        ImageIO.scanForPlugins();
+		filesExames = new Vector();
         atributosExames = new Vector();
         frameTime = new Vector();        
     }
     
     public Vector leDirectorio(String path, Vector atributosExames) throws Exception
     {   	
-    	Plugin.setLicenseKey("NM73KIZUPKHLFLAQM5L0V9U"); 
-       	File f = new File(path+"DICOMDIR");    	
+		Plugin.setLicenseKey("NM73KIZUPKHLFLAQM5L0V9U");
+        ImageIO.scanForPlugins();
+		File f = new File(path+"DICOMDIR");    	
     	Vector<Vector<String>> records = new Vector<Vector<String>>();
         FileSet fs = new FileSet(f,null);
         FileSet.Directory root = fs.getRootDirectory();
