@@ -24,17 +24,7 @@ public class ReadDicomDir {
     }
     
     public Vector leDirectorio(String path, Vector atributosExames) throws Exception
-    {
-    	/*
-    	 * Para um dado DICOMDIR especificado pelo utilizador, liste os
-diversos exames do tipo imagem existentes no espaço definido
-pelo DICOMDIR. Em particular, pretende-se que seja apresentado
-num componente do tipo tabela uma entrada por cada uma das
-SOPs de imagem existentes em ficheiro, apontadas naturalmente
-por uma Directory Record do tipo IMAGE. Uma forma fácil de obter
-essa informação é percorrendo os Directory Records (DR) do
-DICOMDIR até atingir DRs do tipo IMAGE.*/
-    	
+    {   	
     	Plugin.setLicenseKey("NM73KIZUPKHLFLAQM5L0V9U"); 
        	File f = new File(path+"DICOMDIR");    	
     	Vector<Vector<String>> records = new Vector<Vector<String>>();
