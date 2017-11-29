@@ -53,29 +53,19 @@ DICOMDIR até atingir DRs do tipo IMAGE.*/
     				DataSet seriesAttributes = series.getRecord(k).getAttributes();
     				FileSet.Directory exams = series.getRecord(k).getLowerLevelDirectory();
     				for(int l=0; l<exams.getNumRecords();l++){
-    	    			/* Add attributes from images */
     	    			FileSet.Record examRecord = exams.getRecord(l);
     	    			if ("IMAGE".equals(examRecord.getType())){
-        	    			/* Add attributes from images */
         					DataSet imageAttributes= examRecord.getAttributes();
         	    			FileSet.Record imageRecord = examRecord;
         	    			//Add exam to vector
         	    			atributosExames.add(new Atributes(patientAttributes,studyAttributes,seriesAttributes,imageAttributes));
-        	    			//frameTime.add((Float) imageRecord.getAttribute(Tag.FrameTime));
-        	    			//examImagesPaths.add(path + (imageRecord.getFile()).getPath());
-        	    			//directoriesRecordTypes.add((String)imageRecord.getAttribute(Tag.DirectoryRecordType));
-    	    				Vector<String> row = new Vector<String>();
-    	    				row.add("a");
-    	    				row.add("b");
-    	    				row.add("c");
-    	    				row.add("d");
+        	    			Vector<String> row = new Vector<String>();
+    	    				row.add((String)series.getRecord(k).getAttribute(Tag.Modality));
+    	    				row.add((String)root.getRecord(i).getAttribute(Tag.PatientID));
+    	    				row.add(root.getRecord(i).getAttribute(Tag.PatientsBirthDate).toString());
+    	    				row.add((String)root.getRecord(i).getAttribute(Tag.PatientsName));
         	    			records.addElement(row);
     	    			}
-    	    			//Add exam to vector
-    	    			//examsAttributes.add(new Attributes(patientAttributes,studyAttributes,seriesAttributes,imageAttributes));
-    	    			//frameTime.add((Float) imageRecord.getAttribute(Tag.FrameTime));
-    	    			//examImagesPaths.add(path + (imageRecord.getFile()).getPath());
-    	    			//directoriesRecordTypes.add((String)imageRecord.getAttribute(Tag.DirectoryRecordType));
     				}
     					
     			}
