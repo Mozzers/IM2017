@@ -9,6 +9,3 @@
 *.orig
 *.pdf
 */DICOM/
-*clibwrapper_jiio.jar
-*jai_imageio.jar
-*assignment3/lib*
