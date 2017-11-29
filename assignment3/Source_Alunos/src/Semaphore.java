@@ -1,4 +1,3 @@
-
 class Semaphore {
     private int init;
 

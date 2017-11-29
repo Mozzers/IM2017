@@ -31,6 +31,7 @@ public class ExemploDicomDir extends javax.swing.JFrame implements ListSelection
 	/** Creates new form ExemploDicomDir */
 	Vector<Atributes> atributosExames;
 	DefaultListSelectionModel list;
+	private int lastIndex = 0;
 
 	public ExemploDicomDir() {
 		initComponents();
@@ -69,7 +70,8 @@ public class ExemploDicomDir extends javax.swing.JFrame implements ListSelection
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setResizable(false);
-		txtPath.setText("C:\\Users\\UTENTE\\Desktop\\Uni\\Magistrale\\CorsiUC\\IM\\ThirdCase\\Normais\\");
+		String filePath = new File("").getAbsolutePath();
+		txtPath.setText(filePath+"\\Normais\\");
 		txtPath.setName("txtPath");
 
 		lblTitle.setText("DicomDir Path:");
@@ -253,7 +255,15 @@ public class ExemploDicomDir extends javax.swing.JFrame implements ListSelection
 	public void valueChanged(ListSelectionEvent e) {
 		DefaultListSelectionModel auxiliar = (DefaultListSelectionModel) (e.getSource());
 		if (auxiliar.equals(list) && e.getValueIsAdjusting() == false) {
-			Atributes attTemp = (Atributes) atributosExames.elementAt(e.getFirstIndex());
+			int rightIndex = 0;
+			if (this.lastIndex == (e.getFirstIndex())) {
+				rightIndex = e.getLastIndex();
+			} else {
+				rightIndex = e.getFirstIndex();
+			}
+			this.lastIndex = rightIndex;
+			
+			Atributes attTemp = (Atributes) atributosExames.elementAt(rightIndex);
 			txtArea.setText(attTemp.regImage.toString());
 			Plugin.setLicenseKey("NM73KIZUPKHLFLAQM5L0V9U");
 			ImageIO.scanForPlugins();
@@ -261,7 +271,7 @@ public class ExemploDicomDir extends javax.swing.JFrame implements ListSelection
 			Iterator readers = ImageIO.getImageReadersByFormatName("dicom");
 			DicomReader reader = (DicomReader) readers.next();
 			reader.addIIOReadWarningListener(new WarningListener());
-			DataSet imAtt = atributosExames.get(0).getImageAtributes();
+			DataSet imAtt = atributosExames.get(rightIndex).getImageAtributes();
 			DataElement a = (DataElement) imAtt.get(Tag.ReferencedFileID);
 			String[] fs = (String[]) a.value;
 			String path = fs[0] + "\\" + fs[1];
