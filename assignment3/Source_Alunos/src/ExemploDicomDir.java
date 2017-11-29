@@ -71,7 +71,7 @@ public class ExemploDicomDir extends javax.swing.JFrame implements ListSelection
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setResizable(false);
 		String filePath = new File("").getAbsolutePath();
-		txtPath.setText(filePath+"\\Normais\\");
+		txtPath.setText(filePath+"\\Normais");
 		txtPath.setName("txtPath");
 
 		lblTitle.setText("DicomDir Path:");
