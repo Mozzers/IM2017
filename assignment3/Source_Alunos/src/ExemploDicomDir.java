@@ -255,19 +255,16 @@ public class ExemploDicomDir extends javax.swing.JFrame implements ListSelection
 	public void valueChanged(ListSelectionEvent e) {
 		DefaultListSelectionModel auxiliar = (DefaultListSelectionModel) (e.getSource());
 		if (auxiliar.equals(list) && e.getValueIsAdjusting() == false) {
-			
-			Atributes attTemp;
-			if (this.lastIndex == e.getFirstIndex()) {
-				attTemp = atributosExames.elementAt(e.getLastIndex());
-				this.lastIndex = e.getLastIndex();
+			int rightIndex = 0;
+			if (this.lastIndex == (e.getFirstIndex())) {
+				rightIndex = e.getLastIndex();
 			} else {
-				attTemp = atributosExames.elementAt(e.getFirstIndex());
-				this.lastIndex = e.getFirstIndex();
+				rightIndex = e.getFirstIndex();
 			}
+			this.lastIndex = rightIndex;
 			
 			Atributes attTemp = (Atributes) atributosExames.elementAt(rightIndex);
 			txtArea.setText(attTemp.regImage.toString());
-
 			Plugin.setLicenseKey("NM73KIZUPKHLFLAQM5L0V9U");
 			ImageIO.scanForPlugins();
 
