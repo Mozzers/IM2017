@@ -1,3 +1,4 @@
+package BlackBox;
 /*
  * @(#)Parity.java	1.3 98/07/17 SMI
  *

@@ -1,3 +1,4 @@
+package BlackBox;
 /*
  * @(#)ReceiveFraming.java	1.5 98/07/17 SMI
  *

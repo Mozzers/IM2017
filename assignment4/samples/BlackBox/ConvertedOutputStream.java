@@ -1,3 +1,4 @@
+package BlackBox;
 /*
  * @(#)ConvertedOutputStream.java	1.1 98/06/25 SMI
  *

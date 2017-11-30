@@ -1,3 +1,4 @@
+package BlackBox;
 /*
  * @(#)CtlSigDisplay.java	1.5 98/05/29 SMI
  *

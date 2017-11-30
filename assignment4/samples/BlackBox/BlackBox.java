@@ -1,3 +1,4 @@
+package BlackBox;
 /*
  * @(#)BlackBox.java	1.13 98/10/20 SMI
  *

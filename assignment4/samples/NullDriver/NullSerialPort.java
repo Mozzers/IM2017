@@ -30,7 +30,7 @@
  * purposes.
  */
 
-package samples.NullDriver;
+package NullDriver;
 
 import	java.io.*;
 import  java.util.TooManyListenersException;
@@ -175,8 +175,7 @@ class NullSerialPort extends SerialPort {
 	if (closed) throw new IllegalStateException("Port Closed");
 	return parity;
     }
-    public void setFlowControlMode(int flowcontrol) 
-	throws UnsupportCommOperationException {
+    public void setFlowControlMode(int flowcontrol) {
 	if (closed) throw new IllegalStateException("Port Closed");
 	this.flowcontrol = flowcontrol;
     }

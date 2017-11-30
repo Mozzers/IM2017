@@ -1,3 +1,4 @@
+package BlackBox;
 /*
  * @(#)BaudRate.java	1.3 98/07/16 SMI
  *

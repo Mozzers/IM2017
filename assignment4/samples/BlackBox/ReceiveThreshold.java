@@ -1,3 +1,4 @@
+package BlackBox;
 /*
  * @(#)ReceiveThreshold.java	1.4 98/07/17 SMI
  *

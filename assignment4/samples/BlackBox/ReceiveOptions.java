@@ -1,3 +1,4 @@
+package BlackBox;
 /*
  * @(#)ReceiveOptions.java	1.3 98/05/29 SMI
  *
@@ -31,6 +32,8 @@
  * warrants that it will not use or redistribute the Software for such
  * purposes.
  */
+
+import BlackBox.ReceiveThreshold;
 
 import java.awt.Panel;
 import java.awt.FlowLayout;

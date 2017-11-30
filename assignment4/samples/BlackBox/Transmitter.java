@@ -1,3 +1,4 @@
+package BlackBox;
 /*
  * @(#)Transmitter.java	1.12 98/06/25 SMI
  *

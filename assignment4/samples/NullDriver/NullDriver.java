@@ -30,7 +30,7 @@
  * purposes.
  */
 
-package samples.NullDriver;
+package NullDriver;
 
 import	java.net.*;
 import	java.io.*;

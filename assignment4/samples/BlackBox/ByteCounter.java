@@ -1,3 +1,4 @@
+package BlackBox;
 /*
  * @(#)ByteCounter.java	1.4 98/06/01 SMI
  *

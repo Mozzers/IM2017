@@ -1,3 +1,4 @@
+package BlackBox;
 /*
  * @(#)FlowCtlDisplay.java	1.7 98/07/17 SMI
  *

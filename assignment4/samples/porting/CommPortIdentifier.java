@@ -329,7 +329,8 @@ public class CommPortIdentifier {
 	     * may be another Java COMM application or an OS native app.
 	     ******************************************************************/
 	}
-    }
+		return null;
+	}
 
     /**
      * Checks whether the port is owned.
@@ -348,7 +349,8 @@ public class CommPortIdentifier {
 	     * may be another Java COMM application or an OS native app.
 	     ******************************************************************/
 	}
-    }
+		return false;
+	}
 
     OwnershipEventThread oeThread;
 
@@ -405,8 +407,8 @@ public class CommPortIdentifier {
 	     * event notifications from other Java VMs that may be
 	     * running Java Communications API applications.
 	     ******************************************************************/
-	int ret;
-	if (ret) {
+	int ret = 0;
+	if (ret == 1) {
 	    maskOwnershipEvents = true;
 	    switch(ret) {
 	    case 0:

@@ -1,3 +1,4 @@
+package BlackBox;
 /*
  * @(#)ToggleLabel.java	1.2 98/05/04 SMI
  *

@@ -1,3 +1,4 @@
+package BlackBox;
 /*
  * @(#)Receiver.java	1.14 98/08/13 SMI
  *

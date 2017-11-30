@@ -1,3 +1,4 @@
+package BlackBox;
 /*
  * @(#)ByteStatistics.java	1.11 98/06/01 SMI
  *

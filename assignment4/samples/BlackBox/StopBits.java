@@ -1,3 +1,4 @@
+package BlackBox;
 /*
  * @(#)StopBits.java	1.3 98/07/17 SMI
  *

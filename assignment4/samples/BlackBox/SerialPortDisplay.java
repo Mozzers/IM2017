@@ -1,3 +1,4 @@
+package BlackBox;
 /*
  * @(#)SerialPortDisplay.java	1.16 98/10/20 SMI
  *
