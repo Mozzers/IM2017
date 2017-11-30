@@ -12,3 +12,6 @@
 dicomDir.txt
 .project
 *.settings
+*out
+*.idea
+*.iml
