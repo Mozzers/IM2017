@@ -10,3 +10,5 @@
 *.pdf
 */DICOM/
 dicomDir.txt
+.project
+*.settings
