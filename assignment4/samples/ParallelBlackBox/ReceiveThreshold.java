@@ -32,6 +32,8 @@
  * purposes.
  */
 
+package ParallelBlackBox;
+
 import java.awt.Panel;
 import java.awt.Label;
 import java.awt.TextField;

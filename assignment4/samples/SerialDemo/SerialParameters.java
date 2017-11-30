@@ -29,6 +29,8 @@
  * purposes.
  */
 
+package SerialDemo;
+
 import javax.comm.*;
 
 /**

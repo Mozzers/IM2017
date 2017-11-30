@@ -29,6 +29,8 @@
  * purposes.
  */
 
+package SerialDemo;
+
 import javax.comm.*;
 import java.io.*;
 import java.awt.TextArea;

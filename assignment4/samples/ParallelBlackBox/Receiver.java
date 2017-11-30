@@ -32,6 +32,8 @@
  * purposes.
  */
 
+package ParallelBlackBox;
+
 import java.io.IOException;
 
 import java.lang.Character;
