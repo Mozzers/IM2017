@@ -30,6 +30,8 @@
  * purposes.
  */
 
+package SerialDemo;
+
 import javax.comm.*;
 import java.awt.*;
 import java.awt.event.*;

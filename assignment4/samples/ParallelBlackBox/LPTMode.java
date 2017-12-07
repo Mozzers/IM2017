@@ -32,6 +32,8 @@
  * purposes.
  */
 
+package ParallelBlackBox;
+
 import java.awt.Choice;
 
 import java.awt.event.ItemListener;

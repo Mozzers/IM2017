@@ -6,6 +6,7 @@
  * @author Ricardo Sal (ricsal@student.dei.uc.pt)
  */
 
+package src;
 
 public class CMSInterface {
 

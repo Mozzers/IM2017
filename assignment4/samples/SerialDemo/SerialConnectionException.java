@@ -29,6 +29,7 @@
  * purposes.
  */
 
+package SerialDemo;
 
 public class SerialConnectionException extends Exception {
 
