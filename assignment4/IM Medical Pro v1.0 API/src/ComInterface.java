@@ -6,8 +6,6 @@
  * @author Ricardo Sal (ricsal@student.dei.uc.pt)
  */
 
-package src;
-
 import javax.comm.CommPortIdentifier;
 import javax.comm.PortInUseException;
 import javax.comm.SerialPort;
@@ -65,6 +63,7 @@ public class ComInterface {
 						}
 
 					} catch (PortInUseException e) {
+						e.printStackTrace();
 						System.out.println("Error opening COM port or port already in use");
 					}
 				}

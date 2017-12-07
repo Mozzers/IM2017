@@ -6,7 +6,6 @@
  * @author Ricardo Sal (ricsal@student.dei.uc.pt)
  */
 
-package src;
 
 import javax.comm.CommPortIdentifier;
 import javax.comm.SerialPort;
@@ -124,7 +123,7 @@ public class appInterface extends javax.swing.JFrame {
 					JOptionPane.QUESTION_MESSAGE);
 			if (reply == JOptionPane.YES_OPTION) {
 				if (connected)
-					CMSInterface.disconnect();
+					CMSInterface.disconnect(this.port);
 
 				this.setVisible(false);
 				this.dispose();
@@ -185,7 +184,7 @@ public class appInterface extends javax.swing.JFrame {
 
 	void closeButton_actionPerformed(java.awt.event.ActionEvent event) {
 		if (connected)
-			CMSInterface.disconnect();
+			CMSInterface.disconnect(this.port);
 		try {
 			Thread.sleep(300);
 		} catch (Exception e) {
@@ -205,12 +204,9 @@ public class appInterface extends javax.swing.JFrame {
 		disconnButton.setEnabled(true);
 		getParButton.setEnabled(true);
 		invertCheckBox.setEnabled(true);
-		ComInterface port = new ComInterface((String) portComboBox.getSelectedItem());
-		if(CMSInterface.connect(port))
+		if(CMSInterface.connect(this.port))
 			System.out.println("Connection succeded");
 		connected = true;
-
-
 	}
 
 	void disconnButton_actionPerformed(java.awt.event.ActionEvent event) {
@@ -220,17 +216,15 @@ public class appInterface extends javax.swing.JFrame {
 		singleTuneButton.setEnabled(false);
 		invertCheckBox.setEnabled(false);
 		idTextField.setEnabled(false);
-		CMSInterface.disconnect();
+		CMSInterface.disconnect(this.port);
 		connected = false;
-
 	}
 
 
 	void getParButton_actionPerformed(java.awt.event.ActionEvent event) {
-		CMSInterface.getParList();
+		CMSInterface.getParList(this.port);
 		singleTuneButton.setEnabled(false);
 		idTextField.setEnabled(false);
-
 	}
 
 

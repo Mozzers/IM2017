@@ -1,4 +1,3 @@
-package src;
 
 class Semaphore {
     private int init;

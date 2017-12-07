@@ -6,8 +6,6 @@
  * @author Ricardo Sal (ricsal@student.dei.uc.pt)
  */
 
-package src;
-
 import javax.comm.CommPortIdentifier;
 import java.util.Enumeration;
 

@@ -6,8 +6,6 @@
  * @author Ricardo Sal (ricsal@student.dei.uc.pt)
  */
 
-package src;
-
 public class AsciiConversions {
     static char WHITE_SPACE = ' ';
     static char[] char_tbl = /* the font table as global char field */
