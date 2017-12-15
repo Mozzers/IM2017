@@ -1,8 +1,15 @@
+package logic;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 import javax.xml.bind.DatatypeConverter;
+
+import DTO.ListInfo;
+import DTO.MsgID;
+import DTO.Utility;
+import proxy.ComInterface;
+import sistemanoleggio.client.utenteUI.BusinessLogic.UtenteNonRegistratoBL;
 
 /**
  * Simple program to open communications ports and connect to Agilent Monitor
@@ -14,7 +21,7 @@ import javax.xml.bind.DatatypeConverter;
  */
 
 public class CMSInterface {
-
+	
 	public static boolean connect(ComInterface port) {
 		String stringConnReq = "1B0A0061800A0001000000";
 		byte[] connReq = Utility.toByteArray(stringConnReq);

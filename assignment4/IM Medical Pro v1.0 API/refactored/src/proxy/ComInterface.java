@@ -1,3 +1,4 @@
+package proxy;
 /**
  * Simple program to open communications ports and connect to Agilent Monitor
  * Communications Port Interface

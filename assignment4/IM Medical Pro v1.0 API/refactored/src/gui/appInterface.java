@@ -1,3 +1,4 @@
+package gui;
 /**
  * Simple program to open communications ports and connect to Agilent Monitor
  * Graphical User Interface
@@ -10,13 +11,21 @@
 import javax.comm.CommPortIdentifier;
 import javax.comm.SerialPort;
 import javax.swing.*;
+
+import DTO.ListInfo;
+import logic.BLInterface;
+import logic.CMSInterface;
+import proxy.ComInterface;
+import proxy.Utils;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
 
 public class appInterface extends javax.swing.JFrame {
-	private ComInterface port;
+	
+
 	private ArrayList<ListInfo> currentParList;
 	private boolean connected = false;
 	private JTextArea textArea = new javax.swing.JTextArea();
@@ -123,7 +132,7 @@ public class appInterface extends javax.swing.JFrame {
 					JOptionPane.QUESTION_MESSAGE);
 			if (reply == JOptionPane.YES_OPTION) {
 				if (connected)
-					CMSInterface.disconnect(this.port);
+					BLInterface.disconnect();
 
 				this.setVisible(false);
 				this.dispose();
@@ -172,7 +181,7 @@ public class appInterface extends javax.swing.JFrame {
 
 	void openButton_actionPerformed(java.awt.event.ActionEvent event) {
 		String port = (String) portComboBox.getSelectedItem();
-		this.port = new ComInterface(port);
+		BLInterface.openPort(port);
 		openButton.setEnabled(false);
 		closeButton.setEnabled(true);
 		connButton.setEnabled(true);
@@ -180,7 +189,7 @@ public class appInterface extends javax.swing.JFrame {
 
 	void closeButton_actionPerformed(java.awt.event.ActionEvent event) {
 		if (connected)
-			if(CMSInterface.disconnect(this.port)) {
+			if(BLInterface.disconnect()) {
 				appendText("Disconnection succeded\n");
 				connected = false;
 			} else {
@@ -191,7 +200,7 @@ public class appInterface extends javax.swing.JFrame {
 		} catch (Exception e) {
 		}
 		if (!connected) {
-			port.closeComInterface();
+			BLInterface.closePort();
 			openButton.setEnabled(true);
 			closeButton.setEnabled(false);
 			connButton.setEnabled(false);
@@ -201,7 +210,7 @@ public class appInterface extends javax.swing.JFrame {
 	}
 
 	void connButton_actionPerformed(java.awt.event.ActionEvent event) {
-		if(CMSInterface.connect(this.port)) {
+		if(BLInterface.connect()) {
 			appendText("Connection succeded\n");
 			connected = true;
 			disconnButton.setEnabled(true);
@@ -210,13 +219,13 @@ public class appInterface extends javax.swing.JFrame {
 		} else {
 			appendText("Connection failed\n");
 			appendText("Trying to disconnect from a previous connection...\n"); //if connection failed it means there's an open connection
-			if(CMSInterface.disconnect(this.port))
+			if(BLInterface.disconnect())
 				appendText("Disconnection succeded\n");
 		}
 	}
 
 	void disconnButton_actionPerformed(java.awt.event.ActionEvent event) {
-		if (CMSInterface.disconnect(this.port)) {
+		if (BLInterface.disconnect()) {
 			appendText("Disconnection succeded\n");
 			disconnButton.setEnabled(false);
 			connButton.setEnabled(true);
@@ -232,17 +241,15 @@ public class appInterface extends javax.swing.JFrame {
 
 	void getParButton_actionPerformed(java.awt.event.ActionEvent event) {
 		appendText("Waiting for PAR output...\n");
-		currentParList = CMSInterface.getParList(this.port);
-		for(ListInfo entry: currentParList) {
-			appendText(entry + "\n");
-		}
+		String parList= BLInterface.getParList();
+		appendText(parList);
 		singleTuneButton.setEnabled(true);
 		idTextField.setEnabled(true);
 	}
 
 	void singleTuneButton_actionPerformed(java.awt.event.ActionEvent event) {
-		int msgId = Integer.parseInt(idTextField.getText());
-		String out=CMSInterface.singleTuneRequest(this.port,"15",this.currentParList.get(msgId).getMsgIdTyp());
+		int id = Integer.parseInt(idTextField.getText());
+		String out = BLInterface.getTune(id);
 		textArea.append(out);
 	}
 
