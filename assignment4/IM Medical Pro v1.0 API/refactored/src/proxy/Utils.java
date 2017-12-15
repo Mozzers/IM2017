@@ -1,4 +1,3 @@
-package proxy;
 /**
  * Simple program to open communications ports and connect to Agilent Monitor
  * Several useful values and methods
@@ -6,6 +5,8 @@ package proxy;
  * @author Francisco Cardoso (fmcc@student.dei.uc.pt)
  * @author Ricardo Sal (ricsal@student.dei.uc.pt)
  */
+
+package proxy;
 
 import javax.comm.CommPortIdentifier;
 import java.util.Enumeration;
@@ -28,11 +29,16 @@ public class Utils {
 	static int destino = 32865;
 	static int origem = 10;
 
+	static int connectRspLength = 15;
+	static int disconnectRspLength = 11;
+	static int parListRspLength = 11;
+	static int listInfoRspLength = 26;
+	satic int msgIdRspLenth = 10;
+
 	/**
 	 * Lists all available communication ports (COM and LPT) on this machine
 	 * @return Enumeration with all the ports
 	 */
-
 	public static Enumeration getPorts() {
 		Enumeration portList = CommPortIdentifier.getPortIdentifiers();
 		return portList;

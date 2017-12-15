@@ -35,7 +35,7 @@ public class Utility {
 		//	count++;
 		return count;
 	}
-	
+
 	private static String intToHexString(int i) {
 		byte[] byteInt= ByteBuffer.allocate(4).putInt(i).array();
 		byte[] byteIntShort = { byteInt[2], byteInt[3] };

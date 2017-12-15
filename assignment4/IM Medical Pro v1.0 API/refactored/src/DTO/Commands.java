@@ -10,9 +10,7 @@ public class Commands {
 	public static final byte[] TUNE_REQ={0,13};
 	public static final byte[] TUNE_RSP={0,14};
 	public static final byte[] SINGLE_TUNE_REQ={0,15};
-	public static final byte[] SINGLE_TUNE_RSP={0,16};	
-	
+	public static final byte[] SINGLE_TUNE_RSP={0,16};
 	public static final byte[] CMS ={-128,97};
 	public static final byte[] CLIENT = {0,10} ;
-	
 }

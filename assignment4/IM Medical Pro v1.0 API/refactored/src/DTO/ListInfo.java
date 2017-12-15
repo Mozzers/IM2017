@@ -14,12 +14,15 @@ public class ListInfo {
 	public MsgID getMsgIdTyp() {
 		return msgIdTyp;
 	}
+
 	public void setMsgIdTyp(MsgID msgIdTyp) {
 		this.msgIdTyp = msgIdTyp;
 	}
+
 	public String getAsciiId() {
 		return asciiId;
 	}
+
 	public void setAsciiId(String asciiId) {
 		this.asciiId = asciiId;
 	}

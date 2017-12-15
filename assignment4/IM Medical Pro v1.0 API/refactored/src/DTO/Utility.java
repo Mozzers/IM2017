@@ -51,6 +51,44 @@ public class Utility {
 		}
 		return output.toString();
 	}
+
+	public static byte[] escape(byte[] b) { // TODO check right
+		int count = 0;
+		for (int i = 0; i < b.length; i++) {
+			if (b[i] == 27) {
+				count++;
+			}
+		}
+		byte[] out = new byte[b.length+count];
+		int shift = 0;
+		for (int i=0; i<b.length;i++) {
+			if (b[i] == 27) {
+				out[i + shift] = -128;
+				shift++;
+			}
+			out[i + shift] = b[i];
+		}
+		return out;
+	}
+
+	public static byte[] unescape(byte[] b) { // TODO check right
+		int count = 0;
+		for (int i = 0; i < b.length-1; i++) {
+			if (b[i] == -128 && b[i+1] == 27) {
+				count++;
+			}
+		}
+		byte[] out = new byte[b.length-count];
+		int shift = 0;
+		for (int i=0; i<b.length-1;i++) {
+			if (b[i] == -128 && b[i+1] == 27) {
+				out[i-shift] = b[i+1];
+				shift++;
+				i++;
+			}
+		}
+		return out;
+	}
 	
 	public static byte[] addHeader(byte[] b){
 		byte[] out = new byte[b.length+1];
@@ -59,7 +97,6 @@ public class Utility {
 			out[i]=b[i-1];
 		return out;
 	}
-	
 
 	public static byte[] littleEndianSwap(byte[] b){
 		byte[] out=new byte[b.length];

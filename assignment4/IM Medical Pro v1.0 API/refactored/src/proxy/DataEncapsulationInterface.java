@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class DataEncapsulationInterface {
 	
-	
 	public static byte[] getRsp(ComInterface port) {
 		ArrayList<byte[]> rsps = new ArrayList<byte[]>();
 		int intLength = -2;
