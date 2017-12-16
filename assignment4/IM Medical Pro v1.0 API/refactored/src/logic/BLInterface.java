@@ -208,12 +208,12 @@ public class BLInterface {
 				if (readingCount < 0) {
 					readingCount = 3; // min number of bytes
 				}
-				byte[] actualRsp = port.readBytes(readingCount);
+				byte[] actualRsp = machine.readBytes(readingCount);
 				if (actualRsp.length != 0) {
 					intLength += countEscape(actualRsp);
 					rsps.add(actualRsp);
 					rspsByteLength += actualRsp.length;
-					if (actualRsp[0] == 0x1B && actualRsp[1] != 0xFF) {
+					if (actualRsp[0] == 0x1B) { // TODO?
 						byte[] byteLength = { 0, 0, actualRsp[2], actualRsp[1] };
 						intLength = ByteBuffer.wrap(byteLength).getInt();
 					}

@@ -110,7 +110,7 @@ public class ComInterface {
 	public byte[] readBytes(int numBytes) {
 		byte[] readBuffer = null;
 		try {
-			if (numBytes == 0) 
+			if (numBytes == 0 || numBytes > buffer.available())
 				 numBytes = buffer.available();
 			readBuffer = new byte[numBytes];
 			buffer.read(readBuffer, 0, numBytes);
