@@ -29,11 +29,12 @@ public class Utils {
 	static int destino = 32865;
 	static int origem = 10;
 
-	static int connectRspLength = 15;
-	static int disconnectRspLength = 11;
-	static int parListRspLength = 11;
+	static int connectRspLength = 14;
+	static int disconnectRspLength = 10;
+	static int parListRspLength = 10;
 	static int listInfoRspLength = 26;
-	satic int msgIdRspLenth = 10;
+	static int msgIdRspLength = 10;
+	static int asciiIdRspLength = listInfoRspLength - msgIdRspLenth;
 
 	/**
 	 * Lists all available communication ports (COM and LPT) on this machine

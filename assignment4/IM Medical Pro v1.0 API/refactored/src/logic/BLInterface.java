@@ -1,5 +1,6 @@
 package logic;
 
+import com.sun.javafx.tools.ant.Utils;
 import com.sun.org.apache.bcel.internal.classfile.Utility;
 
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class BLInterface {
 		byte[] rsp = getRsp(machine); //TODO
 
 		boolean retVal = false;
-		if (rsp.length >= Utils.connectRspLength) {
+		if (rsp.length > Utils.connectRspLength) {
 			rsp = Utility.removeHeader(rsp);
 			rsp = Utility.unescape(rsp);
 			rsp = Utility.littleEndianSwap(rsp);
@@ -69,7 +70,7 @@ public class BLInterface {
 		byte[] rsp = getRsp(machine); //TODO
 
 		boolean retVal = false;
-		if (rsp.length >= Utils.disconnectRspLength) {
+		if (rsp.length > Utils.disconnectRspLength) {
 			rsp = Utility.removeHeader(rsp);
 			rsp = Utility.unescape(rsp);
 			rsp = Utility.littleEndianSwap(rsp);
@@ -102,7 +103,7 @@ public class BLInterface {
 		int actual = -1;
 		while (actual != total) {
 			byte[] rsp = getRsp(machine);
-			if (rsp.length >= Utils.parListRspLength) {
+			if (rsp.length > Utils.parListRspLength) {
 				rsp = Utility.removeHeader(rsp);
 				rsp = Utility.unescape(rsp);
 				rsp = Utility.littleEndianSwap(rsp);
@@ -114,9 +115,9 @@ public class BLInterface {
 				byte[] actualRsp = { rsp[8] };
 				byte[] totalRsp = { rsp[9] };
 
-				ListInfo[] list_idRsp = new ListInfo[floor(rsp.length-10/Utils.listInfoRspLength)];
+				ListInfo[] list_idRsp = new ListInfo[floor((rsp.length-Utils.parListRspLength)/Utils.listInfoRspLength)];
 				int index = 0;
-				for (int i = 10; i < rsp.length - Utils.listInfoRspLength + 1; i += Utils.listInfoRspLength) {
+				for (int i = Utils.parListRspLength; i < rsp.length - Utils.listInfoRspLength + 1; i += Utils.listInfoRspLength) {
 					byte[] sourceIdRsp = { rsp[i], rsp[i+1] };
 					byte[] channelIdRsp = { rsp[i+2], rsp[i+3] };
 					byte[] msgTypeRsp = { rsp[i+4], rsp[i+5] };
@@ -126,9 +127,9 @@ public class BLInterface {
 					byte[] layerRsp = { rsp[i+9] };
 
 					MsgID msgIdRsp = new MsgID(sourceIdRsp, channelIdRsp, msgTypeRsp, channelNoRsp, sourceNoRsp, layerRsp);
-					byte[] asciiIdRsp = new byte[Utils.listInfoRspLength-Utils.msgIdRspLength];
-					for (int j = 0; j < asciiIdRsp.length; j++) {
-						asciiIdRsp[j] = rsp[i+10+j];
+					byte[] asciiIdRsp = new byte[Utils.asciiIdRspLength];
+					for (int j = 0; j < Utils.asciiIdRspLength; j++) {
+						asciiIdRsp[j] = rsp[i+Utils.msgIdRspLength+j];
 					}
 					String asciiIdStringRsp = Utility.parseASCII(Utility.toHexString(asciiIdRsp));
 					list_idRsp[index] = new ListInfo(msgIdRsp, asciiIdStringRsp);
