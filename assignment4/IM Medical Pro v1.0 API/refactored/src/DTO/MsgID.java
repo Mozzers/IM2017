@@ -1,4 +1,5 @@
 package DTO;
+
 import logic.CMSInterface;
 
 public class MsgID {
@@ -86,9 +87,8 @@ public class MsgID {
 		retVal += CMSInterface.toHexString(this.getMsgType());
 		retVal += CMSInterface.toHexString(this.getSourceNo());
 		retVal += CMSInterface.toHexString(this.getChannelNo());
-		retVal += CMSInterface.toHexString(this.getLayer());
 		retVal += "00";	//Null
-		
+		retVal += CMSInterface.toHexString(this.getLayer());
 		return retVal;
 	}
 	

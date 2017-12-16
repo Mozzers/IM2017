@@ -5,7 +5,6 @@ import javax.xml.bind.DatatypeConverter;
 
 public class Utility {
 
-
 	public static String toHexString(byte[] array) {
 		return DatatypeConverter.printHexBinary(array);
 	}
@@ -129,4 +128,5 @@ public class Utility {
 		message = message.substring(16);
 		return message;
 	}
+
 }

@@ -34,7 +34,8 @@ public class Utils {
 	static int parListRspLength = 10;
 	static int listInfoRspLength = 26;
 	static int msgIdRspLength = 10;
-	static int asciiIdRspLength = listInfoRspLength - msgIdRspLenth;
+	static int asciiIdRspLength = listInfoRspLength - msgIdRspLength;
+	static int singleTuneRspLength = 0; // TODO ?
 
 	/**
 	 * Lists all available communication ports (COM and LPT) on this machine

@@ -32,7 +32,7 @@ public class BLInterface {
 			e.printStackTrace();
 		}
 
-		byte[] rsp = getRsp(machine); //TODO
+		byte[] rsp = getRsp(machine);
 
 		boolean retVal = false;
 		if (rsp.length > Utils.connectRspLength) {
@@ -67,7 +67,7 @@ public class BLInterface {
 			e.printStackTrace();
 		}
 
-		byte[] rsp = getRsp(machine); //TODO
+		byte[] rsp = getRsp(machine);
 
 		boolean retVal = false;
 		if (rsp.length > Utils.disconnectRspLength) {
@@ -150,9 +150,50 @@ public class BLInterface {
 		return ret;
 	}
 
-	public static String getTune(int id) {
-		String ret = "";
-		String out = CMSInterface.singleTuneRequest(machine, "15", currentParList.get(id).getMsgIdTyp());
+	public static String getSingleTune(int id) {
+		byte[] destReq = Commands.CMS;
+		byte[] srcReq = Commands.CLIENT;
+		byte[] byteLengthReq = {0, 22}; //TODO set automatic and/or right?
+		byte[] tune_idReq = new byte[2]; //TODO id to byte[2]?
+		MsgID msg_idReq = currentParList.get(id).getMsgIdTyp(); // TODO like this ?
+		byte[] mpb_hdReq = { 0, 0 }; //TODO ?
+		byte[] app_rec_lenReq = { 0 }; //TODO ?
+		byte[] rec_idReq = { 0 }; //TODO ?
+		SingleTuneReq singleTuneReq = new SingleTuneReq(new TransHd(byteLengthReq, destReq, srcReq), tune_idReq, msg_idReq, mpb_hdReq, app_rec_lenReq, rec_idReq);
+		try {
+			machine.writeBytes(singleTuneReq.toSend());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		byte[] rsp = getRsp(machine);
+
+		if (rsp.length > Utils.singleTuneRspLength) {
+			rsp = Utility.removeHeader(rsp);
+			rsp = Utility.unescape(rsp);
+			rsp = Utility.littleEndianSwap(rsp);
+
+			byte[] byteLengthRsp = { rsp[0], rsp[1] };
+			byte[] destRsp = { rsp[2], rsp[3] };
+			byte[] srcRsp = { rsp[4], rsp[5] };
+			byte[] cmdRsp = { rsp[6], rsp[7] };
+			byte[] mpb_hdRsp = { rsp[18], rsp[19] };
+			byte[] app_rec_lenRsp = { rsp[20] };
+			byte[] rec_idRsp = { rsp[21] };
+
+			byte[] sourceIdRsp = { rsp[8], rsp[9] };
+			byte[] channelIdRsp = { rsp[10], rsp[11] };
+			byte[] msgTypeRsp = { rsp[12], rsp[13] };
+			byte[] channelNoRsp = { rsp[14] };
+			byte[] sourceNoRsp = { rsp[15] };
+			//unused field 1 byte
+			byte[] layerRsp = { rsp[17] };
+			MsgID msg_idRsp = new MsgID(sourceIdRsp, channelIdRsp, msgTypeRsp, channelNoRsp, sourceNoRsp, layerRsp);
+
+			SingleTuneRsp singleTuneRsp = new SingleTuneRsp(new TransHd(byteLengthRsp, destRsp, srcRsp), msg_idRsp, mpb_hdRsp, app_rec_lenRsp, rec_idRsp);
+		}
+
+		String ret = ""; // TODO what to return ?
 		return out;
 	}
 
