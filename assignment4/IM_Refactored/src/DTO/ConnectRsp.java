@@ -4,11 +4,14 @@ public class ConnectRsp {
 
 	private TransHd trans_hd;
 	private final byte[] cmd = Commands.CONNECT_RSP;
-	private byte[] window_size = new byte[2];
-	private byte[] compat_high = new byte[1];
-	private byte[] compat_low = new byte[1];
-	private byte[] error = new byte[1];
-	private byte[] return_ = new byte[1];
+	@SuppressWarnings("all")
+	private byte[] window_size; // 2 byte
+	@SuppressWarnings("all")
+	private byte[] compat_high; // 1 byte
+	@SuppressWarnings("all")
+	private byte[] compat_low; // 1 byte
+	private byte[] error;  // 1 byte
+	private byte[] return_;  // 1 byte
 
 	public ConnectRsp(TransHd trans_hd, byte[] window_size, byte[] compat_high, byte[] compat_low, byte[] error,
 			byte[] return_) {
@@ -29,29 +32,29 @@ public class ConnectRsp {
 		this.trans_hd = trans_hd;
 	}
 
-	public byte[] getWindow_size() {
-		return window_size;
-	}
+//	public byte[] getWindow_size() {
+//		return window_size;
+//	}
 
-	public void setWindow_size(byte[] window_size) {
-		this.window_size = window_size;
-	}
+//	public void setWindow_size(byte[] window_size) {
+//		this.window_size = window_size;
+//	}
 
-	public byte[] getCompat_high() {
-		return compat_high;
-	}
+//	public byte[] getCompat_high() {
+//		return compat_high;
+//	}
 
-	public void setCompat_high(byte[] compat_high) {
-		this.compat_high = compat_high;
-	}
+//	public void setCompat_high(byte[] compat_high) {
+//		this.compat_high = compat_high;
+//	}
 
-	public byte[] getCompat_low() {
-		return compat_low;
-	}
+//	public byte[] getCompat_low() {
+//		return compat_low;
+//	}
 
-	public void setCompat_low(byte[] compat_low) {
-		this.compat_low = compat_low;
-	}
+//	public void setCompat_low(byte[] compat_low) {
+//		this.compat_low = compat_low;
+//	}
 
 	public byte[] getError() {
 		return error;
@@ -65,9 +68,9 @@ public class ConnectRsp {
 		return return_;
 	}
 
-	public void setReturn_(byte[] return_) {
-		this.return_ = return_;
-	}
+//	public void setReturn_(byte[] return_) {
+//		this.return_ = return_;
+//	}
 
 	public byte[] getCmd() {
 		return cmd;

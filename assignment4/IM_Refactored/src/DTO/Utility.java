@@ -14,7 +14,7 @@ public class Utility {
 		ByteBuffer wrapped = ByteBuffer.wrap(array);
 		int decimal;
 		if (array.length == 1) {
-			Byte b = new Byte(array[0]);
+			Byte b = array[0];
 			decimal = b.intValue() & 0xFF;
 		} else {
 			decimal = (wrapped.getShort() & (-1 >>> 16));
@@ -37,7 +37,7 @@ public class Utility {
 		return count;
 	}
 
-	public static String intToHexString(int i) {
+	private static String intToHexString(int i) {
 		byte[] byteInt = ByteBuffer.allocate(4).putInt(i).array();
 		byte[] byteIntShort = { byteInt[2], byteInt[3] };
 		return toHexString(byteIntShort);
@@ -58,8 +58,8 @@ public class Utility {
 
 	public static byte[] escape(byte[] b) {
 		int count = 0;
-		for (int i = 0; i < b.length; i++) {
-			if (b[i] == 27) {
+		for (byte aB : b) {
+			if (aB == 27) {
 				count++;
 			}
 		}
@@ -99,8 +99,7 @@ public class Utility {
 	public static byte[] addHeader(byte[] b) {
 		byte[] out = new byte[b.length + 1];
 		out[0] = 27; // header byte
-		for (int i = 1; i < b.length + 1; i++)
-			out[i] = b[i - 1];
+		System.arraycopy(b, 0, out, 1, b.length - 1);
 		return out;
 	}
 
@@ -115,8 +114,7 @@ public class Utility {
 
 	public static byte[] removeHeader(byte[] b) {
 		byte[] out = new byte[b.length - 1];
-		for (int i = 0; i < b.length - 1; i++)
-			out[i] = b[i + 1];
+		System.arraycopy(b, 1, out, 0, b.length - 1);
 		return out;
 	}
 

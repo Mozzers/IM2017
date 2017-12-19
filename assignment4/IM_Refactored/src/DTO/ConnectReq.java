@@ -14,11 +14,11 @@ public class ConnectReq {
 		this.trans_hd = trans_hd;
 	}
 
-	public ConnectReq(TransHd trans_hd, byte[] tick_periode) {
-		super();
-		this.trans_hd = trans_hd;
-		this.tick_periode = tick_periode;
-	}
+//	public ConnectReq(TransHd trans_hd, byte[] tick_periode) {
+//		super();
+//		this.trans_hd = trans_hd;
+//		this.tick_periode = tick_periode;
+//	}
 
 	public byte[] toSend() throws IOException {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -48,12 +48,12 @@ public class ConnectReq {
 		this.trans_hd = trans_hd;
 	}
 
-	public byte[] getTick_periode() {
-		return tick_periode;
-	}
-
-	public void setTick_periode(byte[] tick_periode) {
-		this.tick_periode = tick_periode;
-	}
+//	public byte[] getTick_periode() {
+//		return tick_periode;
+//	}
+//
+//	public void setTick_periode(byte[] tick_periode) {
+//		this.tick_periode = tick_periode;
+//	}
 
 }

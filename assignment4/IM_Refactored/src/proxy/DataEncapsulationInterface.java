@@ -8,7 +8,7 @@ import DTO.Utility;
 public class DataEncapsulationInterface {
 
 	public static byte[] getRsp(ComInterface port) {
-		ArrayList<byte[]> rsps = new ArrayList<byte[]>();
+		ArrayList<byte[]> rsps = new ArrayList<>();
 		int intLength = -2;
 		int rspsByteLength = 0;
 		while (rspsByteLength - 1 != intLength) {
@@ -23,7 +23,7 @@ public class DataEncapsulationInterface {
 					intLength += Utility.countEscape(actualRsp);
 					rsps.add(actualRsp);
 					rspsByteLength += actualRsp.length;
-					if (actualRsp[0] == 0x1B && actualRsp[1] != 0xFF) {
+					if (actualRsp[0] == 0x1B) {
 						byte[] byteLength = { 0, 0, actualRsp[2], actualRsp[1] };
 						intLength = ByteBuffer.wrap(byteLength).getInt();
 					}
@@ -35,8 +35,8 @@ public class DataEncapsulationInterface {
 		byte[] retVal = new byte[rspsByteLength];
 		int index = 0;
 		for (byte[] rsp : rsps) {
-			for (int i = 0; i < rsp.length; i++) {
-				retVal[index] = rsp[i];
+			for (byte aRsp : rsp) {
+				retVal[index] = aRsp;
 				index++;
 			}
 		}

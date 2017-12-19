@@ -4,8 +4,8 @@ public class DisconnectRsp {
 
 	private TransHd trans_hd;
 	private final byte[] cmd = Commands.DISCONNECT_RSP;
-	private byte[] error = new byte[1];
-	private byte[] return_ = new byte[1];
+	private byte[] error; // 1 byte
+	private byte[] return_; // 1 byte
 
 	public DisconnectRsp(TransHd trans_hd, byte[] error, byte[] return_) {
 		super();
@@ -34,9 +34,9 @@ public class DisconnectRsp {
 		return return_;
 	}
 
-	public void setReturn_(byte[] return_) {
-		this.return_ = return_;
-	}
+//	public void setReturn_(byte[] return_) {
+//		this.return_ = return_;
+//	}
 
 	public byte[] getCmd() {
 		return cmd;

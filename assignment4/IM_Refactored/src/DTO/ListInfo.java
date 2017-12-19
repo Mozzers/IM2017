@@ -15,21 +15,21 @@ public class ListInfo {
 		return msgIdTyp;
 	}
 
-	public void setMsgIdTyp(MsgID msgIdTyp) {
-		this.msgIdTyp = msgIdTyp;
-	}
+//	public void setMsgIdTyp(MsgID msgIdTyp) {
+//		this.msgIdTyp = msgIdTyp;
+//	}
 
-	public String getAsciiId() {
+	protected String getAsciiId() {
 		return asciiId;
 	}
 
-	public void setAsciiId(String asciiId) {
-		this.asciiId = asciiId;
-	}
+//	public void setAsciiId(String asciiId) {
+//		this.asciiId = asciiId;
+//	}
 
 	@Override
 	public String toString() {
-		String retVal = new String();
+		String retVal = "";
 		retVal += this.msgIdTyp.toString();
 		retVal += " ASCII: " + this.getAsciiId();
 		return retVal;

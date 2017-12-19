@@ -19,11 +19,12 @@ import proxy.Utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class BLInterface {
 
 	private static ComInterface machine; // port to machine
-	private static ArrayList<ListInfo> currentParList = new ArrayList<ListInfo>();
+	private static ArrayList<ListInfo> currentParList = new ArrayList<>();
 
 	public static void openPort(String port) {
 		machine = new ComInterface(port);
@@ -157,17 +158,16 @@ public class BLInterface {
 						list_idRsp);
 				total = Integer.parseInt(Utility.toDecimalString(parListRsp.getTotal()));
 				actual = Integer.parseInt(Utility.toDecimalString(parListRsp.getActual()));
-				for (ListInfo listInfo : parListRsp.getList_id()) {
-					currentParList.add(listInfo);
-				}
+				Collections.addAll(currentParList, parListRsp.getList_id());
 			}
 		}
 
-		String ret = "";
+		StringBuilder ret = new StringBuilder();
 		for (ListInfo entry : currentParList) {
-			ret = ret + entry.toString() + "\n";
+			ret.append(entry.toString());
+			ret.append("\n");
 		}
-		return ret;
+		return ret.toString();
 	}
 
 	public static String getSingleTune(int id) {
@@ -216,8 +216,7 @@ public class BLInterface {
 					mpb_hdRsp, app_rec_lenRsp, rec_idRsp);
 		}
 
-		String ret = ""; // TODO what to return ?
-		return ret;
+		return "";
 	}
 
 }

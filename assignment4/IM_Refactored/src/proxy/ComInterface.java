@@ -1,7 +1,7 @@
-/**
- * Simple program to open communications ports and connect to Agilent Monitor
- * Communications Port Interface
- * @version 1.2 - 30 Set 2003
+/*
+  Simple program to open communications ports and connect to Agilent Monitor
+  Communications Port Interface
+  @version 1.2 - 30 Set 2003
  * @author Francisco Cardoso (fmcc@student.dei.uc.pt)
  * @author Ricardo Sal (ricsal@student.dei.uc.pt)
  */
@@ -19,11 +19,8 @@ import java.util.Enumeration;
 
 public class ComInterface {
 
-	private Enumeration<?> portList;
-	private static CommPortIdentifier portId;
 	private static SerialPort serialPort;
 	private static OutputStream outputStream;
-	private InputStream inputStream;
 	private BufferedInputStream buffer;
 
 	/**
@@ -33,9 +30,9 @@ public class ComInterface {
 	 *            The port to connect
 	 */
 	public ComInterface(String port) {
-		portList = CommPortIdentifier.getPortIdentifiers();
+		Enumeration<?> portList = CommPortIdentifier.getPortIdentifiers();
 		while (portList.hasMoreElements()) {
-			portId = (CommPortIdentifier) portList.nextElement();
+			CommPortIdentifier portId = (CommPortIdentifier) portList.nextElement();
 			if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
 				if (portId.getName().equals(port)) {
 					try {
@@ -47,7 +44,7 @@ public class ComInterface {
 							System.out.println("Error configurating COM port");
 						}
 						try {
-							inputStream = serialPort.getInputStream();
+							InputStream inputStream = serialPort.getInputStream();
 							buffer = new BufferedInputStream(inputStream, 2048);
 						} catch (Exception e) {
 							System.out.println("Error creating input stream");
@@ -80,7 +77,7 @@ public class ComInterface {
 	/**
 	 * Writes an array of bytes to this port
 	 * 
-	 * @param data
+	 * @param data is blabla
 	 */
 	public void writeBytes(byte[] data) {
 		try {
@@ -91,22 +88,22 @@ public class ComInterface {
 		}
 	}
 
-	/**
-	 * Reads bytes from this port
-	 * 
-	 * @return An array of bytes
+	/*
+	  Reads bytes from this port
+
+	  @return An array of bytes
 	 */
-	public byte[] readBytes() {
-		byte[] readBuffer = null;
-		try {
-			int numBytes = buffer.available();
-			readBuffer = new byte[numBytes];
-			buffer.read(readBuffer, 0, numBytes);
-		} catch (Exception e) {
-			System.out.println("Error reading from COM port");
-		}
-		return readBuffer;
-	}
+//	public byte[] readBytes() {
+//		byte[] readBuffer = null;
+//		try {
+//			int numBytes = buffer.available();
+//			readBuffer = new byte[numBytes];
+//			buffer.read(readBuffer, 0, numBytes);
+//		} catch (Exception e) {
+//			System.out.println("Error reading from COM port");
+//		}
+//		return readBuffer;
+//	}
 
 	public byte[] readBytes(int numBytes) {
 		byte[] readBuffer = null;
@@ -114,26 +111,27 @@ public class ComInterface {
 			if (numBytes == 0 || numBytes > buffer.available())
 				numBytes = buffer.available();
 			readBuffer = new byte[numBytes];
-			buffer.read(readBuffer, 0, numBytes);
+			@SuppressWarnings("unused")
+			int i = buffer.read(readBuffer, 0, numBytes);
 		} catch (Exception e) {
 			System.out.println("Error reading from COM port");
 		}
 		return readBuffer;
 	}
 
-	/**
-	 * Number of bytes available to read from this port
-	 * 
-	 * @return Number of bytes
+	/*
+	  Number of bytes available to read from this port
+
+	  @return Number of bytes
 	 */
-	public int bytesAvailable() {
-		int nBytes = 0;
-		try {
-			nBytes = buffer.available();
-		} catch (Exception e) {
-			System.out.println("Error reading available bytes from COM port");
-		}
-		return nBytes;
-	}
+//	public int bytesAvailable() {
+//		int nBytes = 0;
+//		try {
+//			nBytes = buffer.available();
+//		} catch (Exception e) {
+//			System.out.println("Error reading available bytes from COM port");
+//		}
+//		return nBytes;
+//	}
 
 }

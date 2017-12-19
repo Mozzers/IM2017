@@ -2,12 +2,13 @@ package DTO;
 
 public class MsgID {
 
-	private byte[] sourceId = new byte[2];
-	private byte[] channelId = new byte[2];
-	private byte[] msgType = new byte[2];
-	private byte[] channelNo = new byte[1];
-	private byte[] sourceNo = new byte[1];
-	private byte[] layer = new byte[1];
+	private byte[] sourceId; // 2 byte
+	private byte[] channelId; // 2 byte
+	private byte[] msgType; // 2 byte
+	private byte[] channelNo; // 1 byte
+	private byte[] sourceNo; // 1 byte
+//	private byte[] unused; // 1 byte
+	private byte[] layer; // 1 byte
 
 	public MsgID(String hex) {
 		this.sourceId = Utility.toByteArray(hex.substring(0, 4));
@@ -29,56 +30,56 @@ public class MsgID {
 		this.layer = layer;
 	}
 
-	public byte[] getSourceId() {
+	protected byte[] getSourceId() {
 		return sourceId;
 	}
 
-	public void setSourceId(byte[] sourceId) {
-		this.sourceId = sourceId;
-	}
+//	public void setSourceId(byte[] sourceId) {
+//		this.sourceId = sourceId;
+//	}
 
-	public byte[] getChannelId() {
+	protected byte[] getChannelId() {
 		return channelId;
 	}
 
-	public void setChannelId(byte[] channelId) {
-		this.channelId = channelId;
-	}
+//	public void setChannelId(byte[] channelId) {
+//		this.channelId = channelId;
+//	}
 
-	public byte[] getMsgType() {
+	protected byte[] getMsgType() {
 		return msgType;
 	}
 
-	public void setMsgType(byte[] msgType) {
-		this.msgType = msgType;
-	}
+//	public void setMsgType(byte[] msgType) {
+//		this.msgType = msgType;
+//	}
 
-	public byte[] getChannelNo() {
+	protected byte[] getChannelNo() {
 		return channelNo;
 	}
 
-	public void setChannelNo(byte[] channelNo) {
-		this.channelNo = channelNo;
-	}
+//	public void setChannelNo(byte[] channelNo) {
+//		this.channelNo = channelNo;
+//	}
 
-	public byte[] getSourceNo() {
+	protected byte[] getSourceNo() {
 		return sourceNo;
 	}
 
-	public void setSourceNo(byte[] sourceNo) {
-		this.sourceNo = sourceNo;
-	}
+//	public void setSourceNo(byte[] sourceNo) {
+//		this.sourceNo = sourceNo;
+//	}
 
-	public byte[] getLayer() {
+	protected byte[] getLayer() {
 		return layer;
 	}
 
-	public void setLayer(byte[] layer) {
-		this.layer = layer;
-	}
+//	public void setLayer(byte[] layer) {
+//		this.layer = layer;
+//	}
 
 	public String toHexString() {
-		String retVal = new String();
+		String retVal = "";
 		retVal += Utility.toHexString(this.getSourceId());
 		retVal += Utility.toHexString(this.getChannelId());
 		retVal += Utility.toHexString(this.getMsgType());
@@ -90,7 +91,7 @@ public class MsgID {
 	}
 
 	public String toString() {
-		String retVal = new String();
+		String retVal = "";
 		retVal += "Source ID: " + Utility.toDecimalString(this.getSourceId());
 		retVal += " Channel ID: " + Utility.toDecimalString(this.getChannelId());
 		retVal += " Message Type: " + Utility.toDecimalString(this.getMsgType());

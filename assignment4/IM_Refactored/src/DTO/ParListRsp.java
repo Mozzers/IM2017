@@ -4,8 +4,8 @@ public class ParListRsp {
 
 	private TransHd trans_hd;
 	private final byte[] cmd = Commands.PAR_LIST_RSP;
-	private byte[] actual = new byte[1];
-	private byte[] total = new byte[1];
+	private byte[] actual; // 1 byte
+	private byte[] total; // 1 byte
 	private ListInfo[] list_id;
 
 	public ParListRsp(TransHd trans_hd, byte[] actual, byte[] total, ListInfo[] list_id) {
@@ -28,25 +28,25 @@ public class ParListRsp {
 		return actual;
 	}
 
-	public void setActual(byte[] actual) {
-		this.actual = actual;
-	}
+//	public void setActual(byte[] actual) {
+//		this.actual = actual;
+//	}
 
 	public byte[] getTotal() {
 		return total;
 	}
 
-	public void setTotal(byte[] total) {
-		this.total = total;
-	}
+//	public void setTotal(byte[] total) {
+//		this.total = total;
+//	}
 
 	public ListInfo[] getList_id() {
 		return list_id;
 	}
 
-	public void setList_id(ListInfo[] list_id) {
-		this.list_id = list_id;
-	}
+//	public void setList_id(ListInfo[] list_id) {
+//		this.list_id = list_id;
+//	}
 
 	public byte[] getCmd() {
 		return cmd;

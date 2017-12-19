@@ -1,11 +1,12 @@
-package gui;
-/**
- * Simple program to open communications ports and connect to Agilent Monitor
- * Graphical User Interface
- * @version 1.2 - 30 Set 2003
+/*
+  Simple program to open communications ports and connect to Agilent Monitor
+  Graphical User Interface
+  @version 1.2 - 30 Set 2003
  * @author Francisco Cardoso (fmcc@student.dei.uc.pt)
  * @author Ricardo Sal (ricsal@student.dei.uc.pt)
  */
+
+package gui;
 
 import javax.comm.CommPortIdentifier;
 import javax.swing.*;
@@ -18,9 +19,6 @@ import java.util.Enumeration;
 
 public class appInterface extends javax.swing.JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private boolean connected = false;
 	private JTextArea textArea = new javax.swing.JTextArea();
@@ -29,21 +27,18 @@ public class appInterface extends javax.swing.JFrame {
 	private JButton getParButton = new javax.swing.JButton();
 	private JButton closeButton = new javax.swing.JButton();
 	private JButton connButton = new javax.swing.JButton();
-	private JComboBox portComboBox = new javax.swing.JComboBox();
-	private JLabel portLabel = new javax.swing.JLabel();
-	private JScrollPane scrollPane = new javax.swing.JScrollPane();
+	private JComboBox<String> portComboBox = new javax.swing.JComboBox<>();
 	private JButton singleTuneButton = new javax.swing.JButton();
 	private JCheckBox invertCheckBox = new javax.swing.JCheckBox("Invert Bits");
 	private JTextField idTextField = new javax.swing.JTextField();
-	private JLabel idLabel = new javax.swing.JLabel();
 
-	public appInterface() {
-
+	private appInterface() {
 		setTitle("JFC Application");
 		setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setSize(814, 611);
 		setVisible(false);
+		JScrollPane scrollPane = new javax.swing.JScrollPane();
 		scrollPane.setBounds(36, 36, 624, 540);
 		scrollPane.setViewportView(textArea);
 		getContentPane().add(scrollPane);
@@ -78,9 +73,11 @@ public class appInterface extends javax.swing.JFrame {
 			portComboBox.addItem(portId.getName());
 		}
 
+		JLabel portLabel = new javax.swing.JLabel();
 		portLabel.setText("Port:");
 		getContentPane().add(portLabel);
 		portLabel.setBounds(684, 456, 44, 26);
+		JLabel idLabel = new javax.swing.JLabel();
 		idLabel.setText("Single Tune Id:");
 		idLabel.setBounds(684, 156, 113, 29);
 		getContentPane().add(idLabel);
@@ -117,7 +114,7 @@ public class appInterface extends javax.swing.JFrame {
 		}
 	}
 
-	void exitApplication() {
+	private void exitApplication() {
 		try {
 			Toolkit.getDefaultToolkit().beep();
 			int reply = JOptionPane.showConfirmDialog(this, "Do you really want to exit?", "JFC Application - Exit",
@@ -131,6 +128,7 @@ public class appInterface extends javax.swing.JFrame {
 				System.exit(0);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -138,18 +136,19 @@ public class appInterface extends javax.swing.JFrame {
 		public void windowClosing(java.awt.event.WindowEvent event) {
 			Object object = event.getSource();
 			if (object == appInterface.this)
-				appInterface_windowClosing(event);
+				appInterface_windowClosing();
 		}
 	}
 
-	void appInterface_windowClosing(java.awt.event.WindowEvent event) {
-		appInterface_windowClosing_Interaction1(event);
+	private void appInterface_windowClosing() {
+		appInterface_windowClosing_Interaction1();
 	}
 
-	void appInterface_windowClosing_Interaction1(java.awt.event.WindowEvent event) {
+	private void appInterface_windowClosing_Interaction1() {
 		try {
 			this.exitApplication();
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -157,21 +156,21 @@ public class appInterface extends javax.swing.JFrame {
 		public void actionPerformed(java.awt.event.ActionEvent event) {
 			Object object = event.getSource();
 			if (object == openButton)
-				openButton_actionPerformed(event);
+				openButton_actionPerformed();
 			if (object == closeButton)
-				closeButton_actionPerformed(event);
+				closeButton_actionPerformed();
 			if (object == connButton)
-				connButton_actionPerformed(event);
+				connButton_actionPerformed();
 			if (object == disconnButton)
-				disconnButton_actionPerformed(event);
+				disconnButton_actionPerformed();
 			if (object == getParButton)
-				getParButton_actionPerformed(event);
+				getParButton_actionPerformed();
 			if (object == singleTuneButton)
-				singleTuneButton_actionPerformed(event);
+				singleTuneButton_actionPerformed();
 		}
 	}
 
-	void openButton_actionPerformed(java.awt.event.ActionEvent event) {
+	private void openButton_actionPerformed() {
 		String port = (String) portComboBox.getSelectedItem();
 		BLInterface.openPort(port);
 		openButton.setEnabled(false);
@@ -179,7 +178,7 @@ public class appInterface extends javax.swing.JFrame {
 		connButton.setEnabled(true);
 	}
 
-	void closeButton_actionPerformed(java.awt.event.ActionEvent event) {
+	private void closeButton_actionPerformed() {
 		if (connected)
 			if (BLInterface.disconnect()) {
 				appendText("Disconnection succeded\n");
@@ -190,6 +189,7 @@ public class appInterface extends javax.swing.JFrame {
 		try {
 			Thread.sleep(300);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		if (!connected) {
 			BLInterface.closePort();
@@ -201,7 +201,7 @@ public class appInterface extends javax.swing.JFrame {
 		}
 	}
 
-	void connButton_actionPerformed(java.awt.event.ActionEvent event) {
+	private void connButton_actionPerformed() {
 		if (BLInterface.connect()) {
 			appendText("Connection succeded\n");
 			connected = true;
@@ -210,21 +210,13 @@ public class appInterface extends javax.swing.JFrame {
 			invertCheckBox.setEnabled(true);
 		} else {
 			appendText("Connection failed\n");
-			appendText("Trying to disconnect from a previous connection...\n"); // if
-																				// connection
-																				// failed
-																				// it
-																				// means
-																				// there's
-																				// an
-																				// open
-																				// connection
+			appendText("Trying to disconnect from a previous connection...\n"); // if connection failed it means there's an open connection
 			if (BLInterface.disconnect())
 				appendText("Disconnection succeded\n");
 		}
 	}
 
-	void disconnButton_actionPerformed(java.awt.event.ActionEvent event) {
+	private void disconnButton_actionPerformed() {
 		if (BLInterface.disconnect()) {
 			appendText("Disconnection succeded\n");
 			disconnButton.setEnabled(false);
@@ -239,7 +231,7 @@ public class appInterface extends javax.swing.JFrame {
 		}
 	}
 
-	void getParButton_actionPerformed(java.awt.event.ActionEvent event) {
+	private void getParButton_actionPerformed() {
 		appendText("Waiting for PAR output...\n");
 		String parList = BLInterface.getParList();
 		appendText(parList);
@@ -247,13 +239,13 @@ public class appInterface extends javax.swing.JFrame {
 		idTextField.setEnabled(true);
 	}
 
-	void singleTuneButton_actionPerformed(java.awt.event.ActionEvent event) {
+	private void singleTuneButton_actionPerformed() {
 		int id = Integer.parseInt(idTextField.getText());
 		String out = BLInterface.getSingleTune(id);
 		textArea.append(out);
 	}
 
-	void appendText(String text) {
+	private void appendText(String text) {
 		textArea.append(text);
 	}
 
