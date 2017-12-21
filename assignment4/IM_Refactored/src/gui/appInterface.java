@@ -181,7 +181,7 @@ public class appInterface extends javax.swing.JFrame {
 	void openButton_actionPerformed(java.awt.event.ActionEvent event) {
 		String port = (String) portComboBox.getSelectedItem();
 		BLInterface.openPort(port);
-		appendText("Port opened correctly.\n");
+		appendText("Port opened correctly.\n\n");
 		openButton.setEnabled(false);
 		closeButton.setEnabled(true);
 		connButton.setEnabled(true);
@@ -190,7 +190,7 @@ public class appInterface extends javax.swing.JFrame {
 	void closeButton_actionPerformed(java.awt.event.ActionEvent event) {
 		if (connected)
 			if (BLInterface.disconnect()) {
-				appendText("Disconnection succeded\n");
+				appendText("Disconnection succeded\n\n");
 				connected = false;
 			} else {
 				appendText("Disconnection failed\n");
@@ -220,13 +220,8 @@ public class appInterface extends javax.swing.JFrame {
 			appendText("Connection failed\n");
 			appendText("Trying to disconnect from a previous connection...\n"); // if
 																				// connection
-																				// failed
-																				// it
-																				// means
-																				// there's
-																				// an
+																				// still
 																				// open
-																				// connection
 			if (BLInterface.disconnect())
 				appendText("Disconnection succeded\n");
 		}
@@ -234,7 +229,7 @@ public class appInterface extends javax.swing.JFrame {
 
 	void disconnButton_actionPerformed(java.awt.event.ActionEvent event) {
 		if (BLInterface.disconnect()) {
-			appendText("Disconnection succeded\n");
+			appendText("Disconnection succeded\n\n");
 			disconnButton.setEnabled(false);
 			connButton.setEnabled(true);
 			getParButton.setEnabled(false);
@@ -243,7 +238,7 @@ public class appInterface extends javax.swing.JFrame {
 			idTextField.setEnabled(false);
 			connected = false;
 		} else {
-			appendText("Disconnection failed\n");
+			appendText("Disconnection failed\n\n");
 		}
 	}
 
@@ -258,9 +253,9 @@ public class appInterface extends javax.swing.JFrame {
 	void singleTuneButton_actionPerformed(java.awt.event.ActionEvent event) {
 		int id = Integer.parseInt(idTextField.getText());
 		String rspOut = BLInterface.getSingleTune(id);
-		textArea.append(rspOut);
+		textArea.append(rspOut + "\n\n");
 		String data = BLInterface.getTuneData();
-		textArea.append(data);
+		textArea.append(data + "\n\n");
 	}
 
 	void appendText(String text) {

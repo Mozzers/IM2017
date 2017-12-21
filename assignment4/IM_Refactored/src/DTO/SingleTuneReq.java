@@ -36,9 +36,6 @@ public class SingleTuneReq {
 		outputStream.write(new byte[] { 0, 0, 0, 0 });
 		byte out[] = outputStream.toByteArray();
 
-		System.out.println("\n testing\n");
-		System.out.println(msg_id.toString());
-
 		out = Utility.littleEndianSwap(out);
 		out = Utility.escape(out);
 		out = Utility.addHeader(out);

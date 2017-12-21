@@ -185,10 +185,6 @@ public class BLInterface {
 		SingleTuneReq singleTuneReq = new SingleTuneReq(new TransHd(byteLengthReq, destReq, srcReq), tune_idReq,
 				msg_idReq, mpb_hdReq, app_rec_lenReq, rec_idReq);
 		try {
-			System.out.println("Single tune req send");
-			byte[] tst = singleTuneReq.toSend();
-			for (int i = 0; i < tst.length; i++)
-				System.out.print(tst[i] + " ");
 			machine.writeBytes(singleTuneReq.toSend());
 		} catch (IOException e) {
 			e.printStackTrace();
